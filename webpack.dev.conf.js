@@ -13,7 +13,7 @@ module.exports = merge(baseConfig, {
   mode: 'development',
   devtool: 'inline-source-map',
   devServer: {
-    contentBase: './qa_manage',
+    contentBase: './dispatch',
     host: '0.0.0.0',
     port: 3001,
     proxy: {

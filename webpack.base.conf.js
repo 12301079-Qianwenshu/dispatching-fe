@@ -15,7 +15,7 @@ module.exports = {
     },
     output: {
         filename: '[name].[hash:8].js',
-        path: path.resolve(__dirname, "qa_manage")
+        path: path.resolve(__dirname, "dispatch")
     },
     module: {
         rules: [
