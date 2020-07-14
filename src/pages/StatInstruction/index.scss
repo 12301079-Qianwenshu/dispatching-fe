@@ -1,0 +1,61 @@
+.page-instruction {
+    height: 100%;
+
+    .ant-breadcrumb {
+        position: fixed;
+        left: 220px;
+        top: 50px;
+        width: 100%;
+        height: 30px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        padding-left: 20px;
+        background-color: rgba(240, 242, 245, 1);
+    }
+
+    .detail {
+        background: #fff;
+        padding: 14px;
+        min-height: 100%;
+        margin-bottom: 20px;
+    }
+
+    .condition {
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid rgba($color: #000000, $alpha: 0.1);
+        padding: 5px 0;
+
+        >span {
+            margin-right: 15px;
+            cursor: pointer;
+        }
+
+        >span.active {
+            color: #1890ff;
+        }
+    }
+
+    .maincont {
+        display: flex;
+
+        .left {
+            flex: 2;
+            margin-right: 10px;
+        }
+
+        .right {
+            flex: 1;
+        }
+    }
+
+    .cards {
+        display: flex;
+        margin: 10px 0;
+        justify-content: space-between;
+
+        >div {
+            width: 32%;
+        }
+    }
+}

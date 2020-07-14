@@ -1,0 +1,13 @@
+.page-layout {
+    .cont {
+        position: absolute;
+        left: 220px;
+        top: 80px;
+        width: calc(100vw - 220px);
+        height: calc(100vh - 80px);
+        padding: 20px;
+        padding-top: 0;
+        background-color: rgba(240, 242, 245, 1);
+        overflow: auto;
+    }
+}

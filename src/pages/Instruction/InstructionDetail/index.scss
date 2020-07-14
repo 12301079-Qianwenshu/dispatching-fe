@@ -1,0 +1,82 @@
+.page-instructiondetail {
+    height: 100%;
+
+    .ant-breadcrumb {
+        position: fixed;
+        left: 220px;
+        top: 50px;
+        width: 100%;
+        height: 30px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        padding-left: 20px;
+        background-color: rgba(240, 242, 245, 1);
+    }
+
+    .detail {
+        min-height: 100%;
+        margin-bottom: 20px;
+        display: flex;
+    }
+
+    .main-cont {
+        background: #fff;
+        flex: auto;
+        margin-right: 10px;
+        padding: 14px;
+    }
+
+    .other-cont {
+        background: #fff;
+        width: 320px;
+        padding: 14px;
+    }
+
+    .title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+
+        h3 {
+            margin: 0;
+            padding: 0;
+        }
+    }
+
+    .ant-btn-link {
+        padding: 0;
+    }
+
+    .file-desc {
+        display: flex;
+
+        // align-items: center;
+        .ant-descriptions-item-content {
+            flex-wrap: wrap;
+            margin-top: -5px;
+        }
+    }
+
+    .ant-descriptions-item-label {
+        width: 80px;
+        flex-shrink: 0;
+    }
+
+    .instruction-detail-person-modal {
+        .ant-descriptions-item-label {
+            width: auto;
+        }
+
+        .ant-descriptions-title {
+            color: #1890ff;
+        }
+    }
+
+    .real-article {
+        font-family: "gb2312";
+        display: flex;
+        justify-content: center;
+        color: #000;
+    }
+}

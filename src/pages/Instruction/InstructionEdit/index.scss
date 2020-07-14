@@ -1,0 +1,69 @@
+.page-instructionedit {
+    height: 100%;
+
+    .ant-breadcrumb {
+        position: fixed;
+        left: 220px;
+        top: 50px;
+        width: 100%;
+        height: 30px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        padding-left: 20px;
+        background-color: rgba(240, 242, 245, 1);
+    }
+
+    .detail {
+        background: #fff;
+        padding: 14px;
+        min-height: 100%;
+        margin-bottom: 20px;
+    }
+
+    .ant-form-item-label {
+        width: 110px;
+    }
+
+    textarea {
+        resize: none;
+    }
+
+    .ant-pagination-total-text {
+        position: absolute;
+        left: 0;
+    }
+
+    .ant-table-selection-extra {
+        display: none;
+    }
+
+    .instructionedit-modal {
+        .ant-pagination {
+            margin-bottom: 0px;
+        }
+    }
+
+    .instructionedit-inner-modal {
+        .ant-descriptions-title {
+            color: #1890ff;
+        }
+    }
+
+    .btn {
+        text-align: right;
+    }
+
+    .answer-editor {
+        border: 1px solid rgba(0, 0, 0, 0.12);
+        margin-bottom: 24px;
+        flex: auto;
+
+        .bf-content {
+            height: 250px;
+        }
+    }
+
+    .answer-editor.noAnswer {
+        border: 1px solid #ff4d4f;
+    }
+}

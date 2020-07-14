@@ -1,0 +1,123 @@
+.page-usercenter {
+    height: 100%;
+
+    .ant-breadcrumb {
+        position: fixed;
+        left: 220px;
+        top: 50px;
+        width: 100%;
+        height: 30px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        padding-left: 20px;
+        background-color: rgba(240, 242, 245, 1);
+    }
+
+    .detail {
+        background: #fff;
+        padding: 14px;
+        min-height: 100%;
+        margin-bottom: 20px;
+    }
+
+    .user-center-cont {
+        display: flex;
+
+        .left {
+            flex: 282;
+            background-color: #ffffff;
+            border-radius: 2px 2px 0px 0px;
+
+            >div {
+                font-size: 15px;
+                color: rgba($color: #000000, $alpha: 0.85);
+                padding: 15px 22px;
+                cursor: pointer;
+            }
+
+            >div.active {
+                background-color: #e6f7ff;
+                box-shadow: -2px 0px 0px 0px #148eff;
+                font-weight: bold;
+                color: rgba($color: #148eff, $alpha: 0.85);
+            }
+        }
+    }
+
+    .right {
+        flex: 1154;
+        margin-left: 5px;
+        padding: 26px 29px;
+        background-color: #ffffff;
+        border-radius: 2px 2px 0px 0px;
+
+        h3 {
+            font-size: 20px;
+            color: rgba($color: #000000, $alpha: 0.85);
+        }
+
+        .topForm {
+            :global(.ant-col) {
+                text-align: left;
+            }
+        }
+
+        .btn {
+            background-color: #3da4f2;
+            border-radius: 3px;
+            color: #fff;
+            padding: 9px 16px;
+            margin-left: 12.5%;
+            cursor: pointer;
+        }
+
+        .safe {
+            >div {
+                font-size: 16px;
+                color: rgba($color: #000000, $alpha: 0.65);
+                padding-top: 10px;
+                padding-bottom: 20px;
+                border-bottom: 1px solid #e8ebf1;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                >div {
+                    color: #1890ff;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    cursor: pointer;
+
+                    i {
+                        margin-right: 7px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.feedbackModal {
+    :global(.ant-modal-header) {
+        :global(.ant-modal-title) {
+            font-size: 15px;
+            font-weight: bold;
+        }
+    }
+
+    :global(.ant-modal-body) {
+        :global(.ant-form-item-label) {
+            text-align: left !important;
+        }
+
+        :global(.ant-row.ant-form-item):last-child {
+            margin-bottom: 0;
+        }
+
+        textarea {
+            resize: none;
+        }
+    }
+
+}
