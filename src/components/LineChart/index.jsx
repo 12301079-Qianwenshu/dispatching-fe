@@ -11,6 +11,7 @@ const data = [
 class LineChart extends Component {
 
     componentDidMount() {
+        let data = this.props.data
         let dom = this.refs.chart
         this.chart = new Chart({
             container: dom,
@@ -22,22 +23,30 @@ class LineChart extends Component {
             nice: true,
         });
         this.chart.tooltip({
-            showMarkers: false,
+            showMarkers: true,
             shared: true,
+            showCrosshairs: true,
         });
 
         this.chart
-            .interval()
+            .line()
             .position('time*num')
             .color('name')
-            .adjust([
-                {
-                    type: 'dodge',
-                    marginRatio: 0, // 分组中各个柱子之间不留空隙
-                }
-            ]);
+            .shape('smooth')
+
+        this.chart
+            .point()
+            .position('time*num')
+            .color('name')
+            .shape('circle');
 
         this.chart.interaction('active-region');
+        this.chart.render();
+    }
+
+    componentDidUpdate() {
+        let data = this.props.data
+        this.chart.changeData(data);
         this.chart.render();
     }
 

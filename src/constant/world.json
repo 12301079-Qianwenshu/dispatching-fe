@@ -9,7 +9,7 @@
             "type": "Feature",
             "id": "AFG",
             "properties": {
-                "name": "Afghanistan"
+                "name": "阿富汗"
             },
             "geometry": {
                 "type": "Polygon",
@@ -299,7 +299,7 @@
             "type": "Feature",
             "id": "AGO",
             "properties": {
-                "name": "Angola"
+                "name": "安哥拉"
             },
             "geometry": {
                 "type": "MultiPolygon",
@@ -619,7 +619,7 @@
             "type": "Feature",
             "id": "ALB",
             "properties": {
-                "name": "Albania"
+                "name": "阿尔巴尼亚"
             },
             "geometry": {
                 "type": "Polygon",
@@ -721,7 +721,7 @@
             "type": "Feature",
             "id": "ARE",
             "properties": {
-                "name": "United Arab Emirates"
+                "name": "阿拉伯联合酋长国"
             },
             "geometry": {
                 "type": "Polygon",
@@ -823,7 +823,7 @@
             "type": "Feature",
             "id": "ARG",
             "properties": {
-                "name": "Argentina"
+                "name": "阿根廷"
             },
             "geometry": {
                 "type": "MultiPolygon",
@@ -1327,7 +1327,7 @@
             "type": "Feature",
             "id": "ARM",
             "properties": {
-                "name": "Armenia"
+                "name": "亚美尼亚"
             },
             "geometry": {
                 "type": "Polygon",
@@ -1421,7 +1421,7 @@
             "type": "Feature",
             "id": "ATF",
             "properties": {
-                "name": "French Southern and Antarctic Lands"
+                "name": "法属南部领地"
             },
             "geometry": {
                 "type": "Polygon",
@@ -1471,7 +1471,7 @@
             "type": "Feature",
             "id": "AUS",
             "properties": {
-                "name": "Australia"
+                "name": "澳大利亚"
             },
             "geometry": {
                 "type": "MultiPolygon",
@@ -2455,7 +2455,7 @@
             "type": "Feature",
             "id": "AUT",
             "properties": {
-                "name": "Austria"
+                "name": "奥地利"
             },
             "geometry": {
                 "type": "Polygon",
@@ -2617,7 +2617,7 @@
             "type": "Feature",
             "id": "AZE",
             "properties": {
-                "name": "Azerbaijan"
+                "name": "阿塞拜疆"
             },
             "geometry": {
                 "type": "MultiPolygon",
@@ -2813,7 +2813,7 @@
             "type": "Feature",
             "id": "BDI",
             "properties": {
-                "name": "Burundi"
+                "name": "布隆迪"
             },
             "geometry": {
                 "type": "Polygon",
@@ -2879,7 +2879,7 @@
             "type": "Feature",
             "id": "BEL",
             "properties": {
-                "name": "Belgium"
+                "name": "比利时"
             },
             "geometry": {
                 "type": "Polygon",
@@ -2953,7 +2953,7 @@
             "type": "Feature",
             "id": "BEN",
             "properties": {
-                "name": "Benin"
+                "name": "贝宁"
             },
             "geometry": {
                 "type": "Polygon",
@@ -3067,7 +3067,7 @@
             "type": "Feature",
             "id": "BFA",
             "properties": {
-                "name": "Burkina Faso"
+                "name": "布基纳法索"
             },
             "geometry": {
                 "type": "Polygon",
@@ -3237,7 +3237,7 @@
             "type": "Feature",
             "id": "BGD",
             "properties": {
-                "name": "Bangladesh"
+                "name": "孟加拉国"
             },
             "geometry": {
                 "type": "Polygon",
@@ -3395,7 +3395,7 @@
             "type": "Feature",
             "id": "BGR",
             "properties": {
-                "name": "Bulgaria"
+                "name": "保加利亚"
             },
             "geometry": {
                 "type": "Polygon",
@@ -3521,7 +3521,7 @@
             "type": "Feature",
             "id": "BHS",
             "properties": {
-                "name": "The Bahamas"
+                "name": "巴哈马"
             },
             "geometry": {
                 "type": "MultiPolygon",
@@ -3629,7 +3629,7 @@
             "type": "Feature",
             "id": "BIH",
             "properties": {
-                "name": "Bosnia and Herzegovina"
+                "name": "波斯尼亚和黑塞哥维那"
             },
             "geometry": {
                 "type": "Polygon",
@@ -3731,7 +3731,7 @@
             "type": "Feature",
             "id": "BLR",
             "properties": {
-                "name": "Belarus"
+                "name": "白俄罗斯"
             },
             "geometry": {
                 "type": "Polygon",
@@ -3921,7 +3921,7 @@
             "type": "Feature",
             "id": "BLZ",
             "properties": {
-                "name": "Belize"
+                "name": "伯利兹"
             },
             "geometry": {
                 "type": "Polygon",
@@ -4015,7 +4015,7 @@
             "type": "Feature",
             "id": "BMU",
             "properties": {
-                "name": "Bermuda"
+                "name": "百慕大"
             },
             "geometry": {
                 "type": "Polygon",
@@ -4373,7 +4373,7 @@
             "type": "Feature",
             "id": "BOL",
             "properties": {
-                "name": "Bolivia"
+                "name": "玻利维亚"
             },
             "geometry": {
                 "type": "Polygon",
@@ -4627,7 +4627,7 @@
             "type": "Feature",
             "id": "BRA",
             "properties": {
-                "name": "Brazil"
+                "name": "巴西"
             },
             "geometry": {
                 "type": "Polygon",
@@ -5453,7 +5453,7 @@
             "type": "Feature",
             "id": "BRN",
             "properties": {
-                "name": "Brunei"
+                "name": "文莱"
             },
             "geometry": {
                 "type": "Polygon",
@@ -5499,7 +5499,7 @@
             "type": "Feature",
             "id": "BTN",
             "properties": {
-                "name": "Bhutan"
+                "name": "不丹"
             },
             "geometry": {
                 "type": "Polygon",
@@ -5565,7 +5565,7 @@
             "type": "Feature",
             "id": "BWA",
             "properties": {
-                "name": "Botswana"
+                "name": "博茨瓦纳"
             },
             "geometry": {
                 "type": "Polygon",
@@ -5739,7 +5739,7 @@
             "type": "Feature",
             "id": "CAF",
             "properties": {
-                "name": "Central African Republic"
+                "name": "中非共和国"
             },
             "geometry": {
                 "type": "Polygon",
@@ -6001,7 +6001,7 @@
             "type": "Feature",
             "id": "CAN",
             "properties": {
-                "name": "Canada"
+                "name": "加拿大"
             },
             "geometry": {
                 "type": "MultiPolygon",
@@ -9313,7 +9313,7 @@
             "type": "Feature",
             "id": "CHE",
             "properties": {
-                "name": "Switzerland"
+                "name": "瑞士"
             },
             "geometry": {
                 "type": "Polygon",
@@ -9423,7 +9423,7 @@
             "type": "Feature",
             "id": "CHL",
             "properties": {
-                "name": "Chile"
+                "name": "智利"
             },
             "geometry": {
                 "type": "MultiPolygon",
@@ -9899,7 +9899,7 @@
             "type": "Feature",
             "id": "CHN",
             "properties": {
-                "name": "China"
+                "name": "中国"
             },
             "geometry": {
                 "type": "MultiPolygon",
@@ -11077,7 +11077,7 @@
             "type": "Feature",
             "id": "CIV",
             "properties": {
-                "name": "Ivory Coast"
+                "name": "科特迪瓦"
             },
             "geometry": {
                 "type": "Polygon",
@@ -11275,7 +11275,7 @@
             "type": "Feature",
             "id": "CMR",
             "properties": {
-                "name": "Cameroon"
+                "name": "喀麦隆"
             },
             "geometry": {
                 "type": "Polygon",
@@ -11533,7 +11533,7 @@
             "type": "Feature",
             "id": "COD",
             "properties": {
-                "name": "Democratic Republic of the Congo"
+                "name": "刚果民主共和国"
             },
             "geometry": {
                 "type": "Polygon",
@@ -12035,7 +12035,7 @@
             "type": "Feature",
             "id": "COG",
             "properties": {
-                "name": "Republic of the Congo"
+                "name": "刚果共和国"
             },
             "geometry": {
                 "type": "Polygon",
@@ -12245,7 +12245,7 @@
             "type": "Feature",
             "id": "COL",
             "properties": {
-                "name": "Colombia"
+                "name": "哥伦比亚"
             },
             "geometry": {
                 "type": "Polygon",
@@ -12659,7 +12659,7 @@
             "type": "Feature",
             "id": "CRI",
             "properties": {
-                "name": "Costa Rica"
+                "name": "哥斯达黎加"
             },
             "geometry": {
                 "type": "Polygon",
@@ -12817,7 +12817,7 @@
             "type": "Feature",
             "id": "CUB",
             "properties": {
-                "name": "Cuba"
+                "name": "古巴"
             },
             "geometry": {
                 "type": "Polygon",
@@ -13077,7 +13077,7 @@
             "type": "Feature",
             "id": "CYP",
             "properties": {
-                "name": "Cyprus"
+                "name": "塞浦路斯"
             },
             "geometry": {
                 "type": "Polygon",
@@ -13151,7 +13151,7 @@
             "type": "Feature",
             "id": "CZE",
             "properties": {
-                "name": "Czech Republic"
+                "name": "捷克"
             },
             "geometry": {
                 "type": "Polygon",
@@ -13305,7 +13305,7 @@
             "type": "Feature",
             "id": "DEU",
             "properties": {
-                "name": "Germany"
+                "name": "德国"
             },
             "geometry": {
                 "type": "Polygon",
@@ -13551,7 +13551,7 @@
             "type": "Feature",
             "id": "DJI",
             "properties": {
-                "name": "Djibouti"
+                "name": "吉布提"
             },
             "geometry": {
                 "type": "Polygon",
@@ -13625,7 +13625,7 @@
             "type": "Feature",
             "id": "DNK",
             "properties": {
-                "name": "Denmark"
+                "name": "丹麦"
             },
             "geometry": {
                 "type": "MultiPolygon",
@@ -13741,7 +13741,7 @@
             "type": "Feature",
             "id": "DOM",
             "properties": {
-                "name": "Dominican Republic"
+                "name": "多米尼加共和国"
             },
             "geometry": {
                 "type": "Polygon",
@@ -13859,7 +13859,7 @@
             "type": "Feature",
             "id": "DZA",
             "properties": {
-                "name": "Algeria"
+                "name": "阿尔及利亚"
             },
             "geometry": {
                 "type": "Polygon",
@@ -14121,7 +14121,7 @@
             "type": "Feature",
             "id": "ECU",
             "properties": {
-                "name": "Ecuador"
+                "name": "厄瓜多尔"
             },
             "geometry": {
                 "type": "Polygon",
@@ -14267,7 +14267,7 @@
             "type": "Feature",
             "id": "EGY",
             "properties": {
-                "name": "Egypt"
+                "name": "埃及"
             },
             "geometry": {
                 "type": "Polygon",
@@ -14449,7 +14449,7 @@
             "type": "Feature",
             "id": "ERI",
             "properties": {
-                "name": "Eritrea"
+                "name": "厄立特里亚"
             },
             "geometry": {
                 "type": "Polygon",
@@ -14575,7 +14575,7 @@
             "type": "Feature",
             "id": "ESP",
             "properties": {
-                "name": "Spain"
+                "name": "西班牙"
             },
             "geometry": {
                 "type": "Polygon",
@@ -14793,7 +14793,7 @@
             "type": "Feature",
             "id": "EST",
             "properties": {
-                "name": "Estonia"
+                "name": "爱沙尼亚"
             },
             "geometry": {
                 "type": "Polygon",
@@ -14875,7 +14875,7 @@
             "type": "Feature",
             "id": "ETH",
             "properties": {
-                "name": "Ethiopia"
+                "name": "埃塞俄比亚"
             },
             "geometry": {
                 "type": "Polygon",
@@ -15125,7 +15125,7 @@
             "type": "Feature",
             "id": "FIN",
             "properties": {
-                "name": "Finland"
+                "name": "芬兰"
             },
             "geometry": {
                 "type": "Polygon",
@@ -15291,7 +15291,7 @@
             "type": "Feature",
             "id": "FJI",
             "properties": {
-                "name": "Fiji"
+                "name": "斐济"
             },
             "geometry": {
                 "type": "MultiPolygon",
@@ -15403,7 +15403,7 @@
             "type": "Feature",
             "id": "FLK",
             "properties": {
-                "name": "Falkland Islands"
+                "name": "福克兰群岛"
             },
             "geometry": {
                 "type": "Polygon",
@@ -15457,7 +15457,7 @@
             "type": "Feature",
             "id": "FRA",
             "properties": {
-                "name": "France"
+                "name": "法国"
             },
             "geometry": {
                 "type": "MultiPolygon",
@@ -15697,7 +15697,7 @@
             "type": "Feature",
             "id": "GAB",
             "properties": {
-                "name": "Gabon"
+                "name": "加蓬"
             },
             "geometry": {
                 "type": "Polygon",
@@ -15835,7 +15835,7 @@
             "type": "Feature",
             "id": "GBR",
             "properties": {
-                "name": "United Kingdom"
+                "name": "英国"
             },
             "geometry": {
                 "type": "MultiPolygon",
@@ -16079,7 +16079,7 @@
             "type": "Feature",
             "id": "GEO",
             "properties": {
-                "name": "Georgia"
+                "name": "格鲁吉亚"
             },
             "geometry": {
                 "type": "Polygon",
@@ -16189,7 +16189,7 @@
             "type": "Feature",
             "id": "GHA",
             "properties": {
-                "name": "Ghana"
+                "name": "加纳"
             },
             "geometry": {
                 "type": "Polygon",
@@ -16303,7 +16303,7 @@
             "type": "Feature",
             "id": "GIN",
             "properties": {
-                "name": "Guinea"
+                "name": "几内亚"
             },
             "geometry": {
                 "type": "Polygon",
@@ -16597,7 +16597,7 @@
             "type": "Feature",
             "id": "GMB",
             "properties": {
-                "name": "Gambia"
+                "name": "冈比亚"
             },
             "geometry": {
                 "type": "Polygon",
@@ -16675,7 +16675,7 @@
             "type": "Feature",
             "id": "GNB",
             "properties": {
-                "name": "Guinea Bissau"
+                "name": "几内亚比绍"
             },
             "geometry": {
                 "type": "Polygon",
@@ -16765,7 +16765,7 @@
             "type": "Feature",
             "id": "GNQ",
             "properties": {
-                "name": "Equatorial Guinea"
+                "name": "赤道几内亚"
             },
             "geometry": {
                 "type": "Polygon",
@@ -16807,7 +16807,7 @@
             "type": "Feature",
             "id": "GRC",
             "properties": {
-                "name": "Greece"
+                "name": "希腊"
             },
             "geometry": {
                 "type": "MultiPolygon",
@@ -17043,7 +17043,7 @@
             "type": "Feature",
             "id": "GRL",
             "properties": {
-                "name": "Greenland"
+                "name": "格陵兰"
             },
             "geometry": {
                 "type": "Polygon",
@@ -17585,7 +17585,7 @@
             "type": "Feature",
             "id": "GTM",
             "properties": {
-                "name": "Guatemala"
+                "name": "危地马拉"
             },
             "geometry": {
                 "type": "Polygon",
@@ -17739,7 +17739,7 @@
             "type": "Feature",
             "id": "GUF",
             "properties": {
-                "name": "French Guiana"
+                "name": "法属圭亚那"
             },
             "geometry": {
                 "type": "Polygon",
@@ -17829,7 +17829,7 @@
             "type": "Feature",
             "id": "GUY",
             "properties": {
-                "name": "Guyana"
+                "name": "圭亚那"
             },
             "geometry": {
                 "type": "Polygon",
@@ -18003,7 +18003,7 @@
             "type": "Feature",
             "id": "HND",
             "properties": {
-                "name": "Honduras"
+                "name": "洪都拉斯"
             },
             "geometry": {
                 "type": "Polygon",
@@ -18245,7 +18245,7 @@
             "type": "Feature",
             "id": "HRV",
             "properties": {
-                "name": "Croatia"
+                "name": "克罗地亚"
             },
             "geometry": {
                 "type": "Polygon",
@@ -18427,7 +18427,7 @@
             "type": "Feature",
             "id": "HTI",
             "properties": {
-                "name": "Haiti"
+                "name": "海地"
             },
             "geometry": {
                 "type": "Polygon",
@@ -18525,7 +18525,7 @@
             "type": "Feature",
             "id": "HUN",
             "properties": {
-                "name": "Hungary"
+                "name": "匈牙利"
             },
             "geometry": {
                 "type": "Polygon",
@@ -18663,7 +18663,7 @@
             "type": "Feature",
             "id": "IDN",
             "properties": {
-                "name": "Indonesia"
+                "name": "印度尼西亚"
             },
             "geometry": {
                 "type": "MultiPolygon",
@@ -19727,7 +19727,7 @@
             "type": "Feature",
             "id": "IND",
             "properties": {
-                "name": "India"
+                "name": "印度"
             },
             "geometry": {
                 "type": "Polygon",
@@ -20253,7 +20253,7 @@
             "type": "Feature",
             "id": "IRL",
             "properties": {
-                "name": "Ireland"
+                "name": "爱尔兰"
             },
             "geometry": {
                 "type": "Polygon",
@@ -20319,7 +20319,7 @@
             "type": "Feature",
             "id": "IRN",
             "properties": {
-                "name": "Iran"
+                "name": "伊朗"
             },
             "geometry": {
                 "type": "Polygon",
@@ -20633,7 +20633,7 @@
             "type": "Feature",
             "id": "IRQ",
             "properties": {
-                "name": "Iraq"
+                "name": "伊拉克"
             },
             "geometry": {
                 "type": "Polygon",
@@ -20767,7 +20767,7 @@
             "type": "Feature",
             "id": "ISL",
             "properties": {
-                "name": "Iceland"
+                "name": "冰岛"
             },
             "geometry": {
                 "type": "Polygon",
@@ -20861,7 +20861,7 @@
             "type": "Feature",
             "id": "ISR",
             "properties": {
-                "name": "Israel"
+                "name": "以色列"
             },
             "geometry": {
                 "type": "Polygon",
@@ -20967,7 +20967,7 @@
             "type": "Feature",
             "id": "ITA",
             "properties": {
-                "name": "Italy"
+                "name": "意大利"
             },
             "geometry": {
                 "type": "MultiPolygon",
@@ -21339,7 +21339,7 @@
             "type": "Feature",
             "id": "JAM",
             "properties": {
-                "name": "Jamaica"
+                "name": "牙买加"
             },
             "geometry": {
                 "type": "Polygon",
@@ -21397,7 +21397,7 @@
             "type": "Feature",
             "id": "JOR",
             "properties": {
-                "name": "Jordan"
+                "name": "约旦"
             },
             "geometry": {
                 "type": "Polygon",
@@ -21487,7 +21487,7 @@
             "type": "Feature",
             "id": "JPN",
             "properties": {
-                "name": "Japan"
+                "name": "日本"
             },
             "geometry": {
                 "type": "MultiPolygon",
@@ -21771,7 +21771,7 @@
             "type": "Feature",
             "id": "KAZ",
             "properties": {
-                "name": "Kazakhstan"
+                "name": "哈萨克斯坦"
             },
             "geometry": {
                 "type": "Polygon",
@@ -22233,7 +22233,7 @@
             "type": "Feature",
             "id": "KEN",
             "properties": {
-                "name": "Kenya"
+                "name": "肯尼亚"
             },
             "geometry": {
                 "type": "Polygon",
@@ -22395,7 +22395,7 @@
             "type": "Feature",
             "id": "KGZ",
             "properties": {
-                "name": "Kyrgyzstan"
+                "name": "吉尔吉斯斯坦"
             },
             "geometry": {
                 "type": "Polygon",
@@ -22549,7 +22549,7 @@
             "type": "Feature",
             "id": "KHM",
             "properties": {
-                "name": "Cambodia"
+                "name": "柬埔寨"
             },
             "geometry": {
                 "type": "Polygon",
@@ -22631,7 +22631,7 @@
             "type": "Feature",
             "id": "KOR",
             "properties": {
-                "name": "South Korea"
+                "name": "韩国"
             },
             "geometry": {
                 "type": "Polygon",
@@ -22721,7 +22721,7 @@
             "type": "Feature",
             "id": "CS-KM",
             "properties": {
-                "name": "Kosovo"
+                "name": "科索沃"
             },
             "geometry": {
                 "type": "Polygon",
@@ -22819,7 +22819,7 @@
             "type": "Feature",
             "id": "KWT",
             "properties": {
-                "name": "Kuwait"
+                "name": "科威特"
             },
             "geometry": {
                 "type": "Polygon",
@@ -22869,7 +22869,7 @@
             "type": "Feature",
             "id": "LAO",
             "properties": {
-                "name": "Laos"
+                "name": "老挝"
             },
             "geometry": {
                 "type": "Polygon",
@@ -23031,7 +23031,7 @@
             "type": "Feature",
             "id": "LBN",
             "properties": {
-                "name": "Lebanon"
+                "name": "黎巴嫩"
             },
             "geometry": {
                 "type": "Polygon",
@@ -23089,7 +23089,7 @@
             "type": "Feature",
             "id": "LBR",
             "properties": {
-                "name": "Liberia"
+                "name": "利比里亚"
             },
             "geometry": {
                 "type": "Polygon",
@@ -23211,7 +23211,7 @@
             "type": "Feature",
             "id": "LBY",
             "properties": {
-                "name": "Libya"
+                "name": "利比亚"
             },
             "geometry": {
                 "type": "Polygon",
@@ -23449,7 +23449,7 @@
             "type": "Feature",
             "id": "LKA",
             "properties": {
-                "name": "Sri Lanka"
+                "name": "斯里兰卡"
             },
             "geometry": {
                 "type": "Polygon",
@@ -23503,7 +23503,7 @@
             "type": "Feature",
             "id": "LSO",
             "properties": {
-                "name": "Lesotho"
+                "name": "莱索托"
             },
             "geometry": {
                 "type": "Polygon",
@@ -23565,7 +23565,7 @@
             "type": "Feature",
             "id": "LTU",
             "properties": {
-                "name": "Lithuania"
+                "name": "立陶宛"
             },
             "geometry": {
                 "type": "Polygon",
@@ -23655,7 +23655,7 @@
             "type": "Feature",
             "id": "LUX",
             "properties": {
-                "name": "Luxembourg"
+                "name": "卢森堡"
             },
             "geometry": {
                 "type": "Polygon",
@@ -23697,7 +23697,7 @@
             "type": "Feature",
             "id": "LVA",
             "properties": {
-                "name": "Latvia"
+                "name": "拉脱维亚"
             },
             "geometry": {
                 "type": "Polygon",
@@ -23799,7 +23799,7 @@
             "type": "Feature",
             "id": "MAR",
             "properties": {
-                "name": "Morocco"
+                "name": "摩洛哥"
             },
             "geometry": {
                 "type": "Polygon",
@@ -24069,7 +24069,7 @@
             "type": "Feature",
             "id": "MDA",
             "properties": {
-                "name": "Moldova"
+                "name": "摩尔多瓦"
             },
             "geometry": {
                 "type": "Polygon",
@@ -24191,7 +24191,7 @@
             "type": "Feature",
             "id": "MDG",
             "properties": {
-                "name": "Madagascar"
+                "name": "马达加斯加"
             },
             "geometry": {
                 "type": "Polygon",
@@ -24401,7 +24401,7 @@
             "type": "Feature",
             "id": "MEX",
             "properties": {
-                "name": "Mexico"
+                "name": "墨西哥"
             },
             "geometry": {
                 "type": "Polygon",
@@ -25177,7 +25177,7 @@
             "type": "Feature",
             "id": "MLI",
             "properties": {
-                "name": "Mali"
+                "name": "马里"
             },
             "geometry": {
                 "type": "Polygon",
@@ -25495,7 +25495,7 @@
             "type": "Feature",
             "id": "MMR",
             "properties": {
-                "name": "Myanmar"
+                "name": "缅甸"
             },
             "geometry": {
                 "type": "Polygon",
@@ -25789,7 +25789,7 @@
             "type": "Feature",
             "id": "MNE",
             "properties": {
-                "name": "Montenegro"
+                "name": "黑山"
             },
             "geometry": {
                 "type": "Polygon",
@@ -25875,7 +25875,7 @@
             "type": "Feature",
             "id": "MNG",
             "properties": {
-                "name": "Mongolia"
+                "name": "蒙古"
             },
             "geometry": {
                 "type": "Polygon",
@@ -26189,7 +26189,7 @@
             "type": "Feature",
             "id": "MOZ",
             "properties": {
-                "name": "Mozambique"
+                "name": "莫桑比克"
             },
             "geometry": {
                 "type": "Polygon",
@@ -26511,7 +26511,7 @@
             "type": "Feature",
             "id": "MRT",
             "properties": {
-                "name": "Mauritania"
+                "name": "毛里塔尼亚"
             },
             "geometry": {
                 "type": "Polygon",
@@ -26681,7 +26681,7 @@
             "type": "Feature",
             "id": "MWI",
             "properties": {
-                "name": "Malawi"
+                "name": "马拉维"
             },
             "geometry": {
                 "type": "Polygon",
@@ -26807,7 +26807,7 @@
             "type": "Feature",
             "id": "MYS",
             "properties": {
-                "name": "Malaysia"
+                "name": "马来西亚"
             },
             "geometry": {
                 "type": "MultiPolygon",
@@ -27075,7 +27075,7 @@
             "type": "Feature",
             "id": "NAM",
             "properties": {
-                "name": "Namibia"
+                "name": "纳米比亚"
             },
             "geometry": {
                 "type": "Polygon",
@@ -27265,7 +27265,7 @@
             "type": "Feature",
             "id": "NCL",
             "properties": {
-                "name": "New Caledonia"
+                "name": "新喀里多尼亚"
             },
             "geometry": {
                 "type": "Polygon",
@@ -27331,7 +27331,7 @@
             "type": "Feature",
             "id": "NER",
             "properties": {
-                "name": "Niger"
+                "name": "尼日尔"
             },
             "geometry": {
                 "type": "Polygon",
@@ -27577,7 +27577,7 @@
             "type": "Feature",
             "id": "NGA",
             "properties": {
-                "name": "Nigeria"
+                "name": "尼日利亚"
             },
             "geometry": {
                 "type": "Polygon",
@@ -27823,7 +27823,7 @@
             "type": "Feature",
             "id": "NIC",
             "properties": {
-                "name": "Nicaragua"
+                "name": "尼加拉瓜"
             },
             "geometry": {
                 "type": "Polygon",
@@ -28045,7 +28045,7 @@
             "type": "Feature",
             "id": "NLD",
             "properties": {
-                "name": "Netherlands"
+                "name": "荷兰"
             },
             "geometry": {
                 "type": "Polygon",
@@ -28115,7 +28115,7 @@
             "type": "Feature",
             "id": "NOR",
             "properties": {
-                "name": "Norway"
+                "name": "挪威"
             },
             "geometry": {
                 "type": "MultiPolygon",
@@ -28495,7 +28495,7 @@
             "type": "Feature",
             "id": "NPL",
             "properties": {
-                "name": "Nepal"
+                "name": "尼泊尔"
             },
             "geometry": {
                 "type": "Polygon",
@@ -28601,7 +28601,7 @@
             "type": "Feature",
             "id": "NZL",
             "properties": {
-                "name": "New Zealand"
+                "name": "新西兰"
             },
             "geometry": {
                 "type": "MultiPolygon",
@@ -28885,7 +28885,7 @@
             "type": "Feature",
             "id": "OMN",
             "properties": {
-                "name": "Oman"
+                "name": "阿曼"
             },
             "geometry": {
                 "type": "MultiPolygon",
@@ -29093,7 +29093,7 @@
             "type": "Feature",
             "id": "PAK",
             "properties": {
-                "name": "Pakistan"
+                "name": "巴基斯坦"
             },
             "geometry": {
                 "type": "Polygon",
@@ -29371,7 +29371,7 @@
             "type": "Feature",
             "id": "PAN",
             "properties": {
-                "name": "Panama"
+                "name": "巴拿马"
             },
             "geometry": {
                 "type": "Polygon",
@@ -29593,7 +29593,7 @@
             "type": "Feature",
             "id": "PER",
             "properties": {
-                "name": "Peru"
+                "name": "秘鲁"
             },
             "geometry": {
                 "type": "Polygon",
@@ -29911,7 +29911,7 @@
             "type": "Feature",
             "id": "PHL",
             "properties": {
-                "name": "Philippines"
+                "name": "菲律宾"
             },
             "geometry": {
                 "type": "MultiPolygon",
@@ -30391,7 +30391,7 @@
             "type": "Feature",
             "id": "PNG",
             "properties": {
-                "name": "Papua New Guinea"
+                "name": "巴布亚新几内亚"
             },
             "geometry": {
                 "type": "MultiPolygon",
@@ -30743,7 +30743,7 @@
             "type": "Feature",
             "id": "POL",
             "properties": {
-                "name": "Poland"
+                "name": "波兰"
             },
             "geometry": {
                 "type": "Polygon",
@@ -30937,7 +30937,7 @@
             "type": "Feature",
             "id": "PRI",
             "properties": {
-                "name": "Puerto Rico"
+                "name": "波多黎各"
             },
             "geometry": {
                 "type": "Polygon",
@@ -30987,7 +30987,7 @@
             "type": "Feature",
             "id": "PRK",
             "properties": {
-                "name": "North Korea"
+                "name": "朝鲜"
             },
             "geometry": {
                 "type": "Polygon",
@@ -31173,7 +31173,7 @@
             "type": "Feature",
             "id": "PRT",
             "properties": {
-                "name": "Portugal"
+                "name": "葡萄牙"
             },
             "geometry": {
                 "type": "Polygon",
@@ -31319,7 +31319,7 @@
             "type": "Feature",
             "id": "PRY",
             "properties": {
-                "name": "Paraguay"
+                "name": "巴拉圭"
             },
             "geometry": {
                 "type": "Polygon",
@@ -31465,7 +31465,7 @@
             "type": "Feature",
             "id": "QAT",
             "properties": {
-                "name": "Qatar"
+                "name": "卡塔尔"
             },
             "geometry": {
                 "type": "Polygon",
@@ -31515,7 +31515,7 @@
             "type": "Feature",
             "id": "ROU",
             "properties": {
-                "name": "Romania"
+                "name": "罗马尼亚"
             },
             "geometry": {
                 "type": "Polygon",
@@ -31705,7 +31705,7 @@
             "type": "Feature",
             "id": "RUS",
             "properties": {
-                "name": "Russia"
+                "name": "俄罗斯"
             },
             "geometry": {
                 "type": "MultiPolygon",
@@ -34161,7 +34161,7 @@
             "type": "Feature",
             "id": "RWA",
             "properties": {
-                "name": "Rwanda"
+                "name": "卢旺达"
             },
             "geometry": {
                 "type": "Polygon",
@@ -34227,7 +34227,7 @@
             "type": "Feature",
             "id": "ESH",
             "properties": {
-                "name": "Western Sahara"
+                "name": "西撒哈拉"
             },
             "geometry": {
                 "type": "Polygon",
@@ -34353,7 +34353,7 @@
             "type": "Feature",
             "id": "SAU",
             "properties": {
-                "name": "Saudi Arabia"
+                "name": "沙特阿拉伯"
             },
             "geometry": {
                 "type": "Polygon",
@@ -34671,7 +34671,7 @@
             "type": "Feature",
             "id": "SDN",
             "properties": {
-                "name": "Sudan"
+                "name": "苏丹"
             },
             "geometry": {
                 "type": "Polygon",
@@ -35267,7 +35267,7 @@
             "type": "Feature",
             "id": "SEN",
             "properties": {
-                "name": "Senegal"
+                "name": "塞内加尔"
             },
             "geometry": {
                 "type": "Polygon",
@@ -35457,7 +35457,7 @@
             "type": "Feature",
             "id": "SLB",
             "properties": {
-                "name": "Solomon Islands"
+                "name": "所罗门群岛"
             },
             "geometry": {
                 "type": "MultiPolygon",
@@ -35637,7 +35637,7 @@
             "type": "Feature",
             "id": "SLE",
             "properties": {
-                "name": "Sierra Leone"
+                "name": "塞拉利昂"
             },
             "geometry": {
                 "type": "Polygon",
@@ -35739,7 +35739,7 @@
             "type": "Feature",
             "id": "SLV",
             "properties": {
-                "name": "El Salvador"
+                "name": "萨尔瓦多"
             },
             "geometry": {
                 "type": "Polygon",
@@ -35943,7 +35943,7 @@
             "type": "Feature",
             "id": "SOM",
             "properties": {
-                "name": "Somalia"
+                "name": "索马里"
             },
             "geometry": {
                 "type": "Polygon",
@@ -36101,7 +36101,7 @@
             "type": "Feature",
             "id": "SRB",
             "properties": {
-                "name": "Republic of Serbia"
+                "name": "塞尔维亚"
             },
             "geometry": {
                 "type": "Polygon",
@@ -36299,7 +36299,7 @@
             "type": "Feature",
             "id": "SUR",
             "properties": {
-                "name": "Suriname"
+                "name": "苏里南"
             },
             "geometry": {
                 "type": "Polygon",
@@ -36417,7 +36417,7 @@
             "type": "Feature",
             "id": "SVK",
             "properties": {
-                "name": "Slovakia"
+                "name": "斯洛伐克"
             },
             "geometry": {
                 "type": "Polygon",
@@ -36563,7 +36563,7 @@
             "type": "Feature",
             "id": "SVN",
             "properties": {
-                "name": "Slovenia"
+                "name": "斯洛文尼亚"
             },
             "geometry": {
                 "type": "Polygon",
@@ -36649,7 +36649,7 @@
             "type": "Feature",
             "id": "SWE",
             "properties": {
-                "name": "Sweden"
+                "name": "瑞典"
             },
             "geometry": {
                 "type": "Polygon",
@@ -36823,7 +36823,7 @@
             "type": "Feature",
             "id": "SWZ",
             "properties": {
-                "name": "Swaziland"
+                "name": "斯威士兰"
             },
             "geometry": {
                 "type": "Polygon",
@@ -36881,7 +36881,7 @@
             "type": "Feature",
             "id": "SYR",
             "properties": {
-                "name": "Syria"
+                "name": "叙利亚"
             },
             "geometry": {
                 "type": "Polygon",
@@ -37003,7 +37003,7 @@
             "type": "Feature",
             "id": "TCD",
             "properties": {
-                "name": "Chad"
+                "name": "乍得"
             },
             "geometry": {
                 "type": "Polygon",
@@ -37249,7 +37249,7 @@
             "type": "Feature",
             "id": "TGO",
             "properties": {
-                "name": "Togo"
+                "name": "多哥"
             },
             "geometry": {
                 "type": "Polygon",
@@ -37339,7 +37339,7 @@
             "type": "Feature",
             "id": "THA",
             "properties": {
-                "name": "Thailand"
+                "name": "泰国"
             },
             "geometry": {
                 "type": "Polygon",
@@ -37609,7 +37609,7 @@
             "type": "Feature",
             "id": "TJK",
             "properties": {
-                "name": "Tajikistan"
+                "name": "塔吉克斯坦"
             },
             "geometry": {
                 "type": "Polygon",
@@ -37787,7 +37787,7 @@
             "type": "Feature",
             "id": "TKM",
             "properties": {
-                "name": "Turkmenistan"
+                "name": "土库曼斯坦"
             },
             "geometry": {
                 "type": "Polygon",
@@ -38017,7 +38017,7 @@
             "type": "Feature",
             "id": "TLS",
             "properties": {
-                "name": "East Timor"
+                "name": "东帝汶"
             },
             "geometry": {
                 "type": "Polygon",
@@ -38075,7 +38075,7 @@
             "type": "Feature",
             "id": "TTO",
             "properties": {
-                "name": "Trinidad and Tobago"
+                "name": "特立尼达和多巴哥"
             },
             "geometry": {
                 "type": "Polygon",
@@ -38121,7 +38121,7 @@
             "type": "Feature",
             "id": "TUN",
             "properties": {
-                "name": "Tunisia"
+                "name": "突尼斯"
             },
             "geometry": {
                 "type": "Polygon",
@@ -38259,7 +38259,7 @@
             "type": "Feature",
             "id": "TUR",
             "properties": {
-                "name": "Turkey"
+                "name": "土耳其"
             },
             "geometry": {
                 "type": "MultiPolygon",
@@ -38547,7 +38547,7 @@
             "type": "Feature",
             "id": "TZA",
             "properties": {
-                "name": "United Republic of Tanzania"
+                "name": "坦桑尼亚"
             },
             "geometry": {
                 "type": "Polygon",
@@ -38757,7 +38757,7 @@
             "type": "Feature",
             "id": "UGA",
             "properties": {
-                "name": "Uganda"
+                "name": "乌干达"
             },
             "geometry": {
                 "type": "Polygon",
@@ -38879,7 +38879,7 @@
             "type": "Feature",
             "id": "UKR",
             "properties": {
-                "name": "Ukraine"
+                "name": "乌克兰"
             },
             "geometry": {
                 "type": "Polygon",
@@ -39285,7 +39285,7 @@
             "type": "Feature",
             "id": "URY",
             "properties": {
-                "name": "Uruguay"
+                "name": "乌拉圭"
             },
             "geometry": {
                 "type": "Polygon",
@@ -39383,7 +39383,7 @@
             "type": "Feature",
             "id": "USA",
             "properties": {
-                "name": "United States of America"
+                "name": "美国"
             },
             "geometry": {
                 "type": "MultiPolygon",
@@ -41211,7 +41211,7 @@
             "type": "Feature",
             "id": "UZB",
             "properties": {
-                "name": "Uzbekistan"
+                "name": "乌兹别克斯坦"
             },
             "geometry": {
                 "type": "Polygon",
@@ -41441,7 +41441,7 @@
             "type": "Feature",
             "id": "VEN",
             "properties": {
-                "name": "Venezuela"
+                "name": "委内瑞拉"
             },
             "geometry": {
                 "type": "Polygon",
@@ -41823,7 +41823,7 @@
             "type": "Feature",
             "id": "VNM",
             "properties": {
-                "name": "Vietnam"
+                "name": "越南"
             },
             "geometry": {
                 "type": "Polygon",
@@ -42013,7 +42013,7 @@
             "type": "Feature",
             "id": "VUT",
             "properties": {
-                "name": "Vanuatu"
+                "name": "瓦努阿图"
             },
             "geometry": {
                 "type": "MultiPolygon",
@@ -42131,7 +42131,7 @@
             "type": "Feature",
             "id": "YEM",
             "properties": {
-                "name": "Yemen"
+                "name": "也门"
             },
             "geometry": {
                 "type": "Polygon",
@@ -42321,7 +42321,7 @@
             "type": "Feature",
             "id": "ZAF",
             "properties": {
-                "name": "South Africa"
+                "name": "南非"
             },
             "geometry": {
                 "type": "Polygon",
@@ -42713,7 +42713,7 @@
             "type": "Feature",
             "id": "ZMB",
             "properties": {
-                "name": "Zambia"
+                "name": "赞比亚"
             },
             "geometry": {
                 "type": "Polygon",
@@ -42971,7 +42971,7 @@
             "type": "Feature",
             "id": "ZWE",
             "properties": {
-                "name": "Zimbabwe"
+                "name": "津巴布韦"
             },
             "geometry": {
                 "type": "Polygon",

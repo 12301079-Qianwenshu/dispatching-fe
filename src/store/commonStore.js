@@ -12,6 +12,16 @@ class CommonStore {
     @action setSelectedTrackList(data) {
         this.selectedTrackList = data
     }
+
+    @observable userinfo = null
+    @action setUserinfo(data) {
+        this.userinfo = data
+    }
+
+    @observable count = null
+    @action setCount(data) {
+        this.count = data
+    }
 }
 
 export default CommonStore

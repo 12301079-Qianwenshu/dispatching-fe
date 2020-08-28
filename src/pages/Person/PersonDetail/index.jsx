@@ -5,71 +5,6 @@ import API from '../../../api/index'
 import './index.scss'
 import moment from 'moment';
 
-const info = {
-    name: '张三',
-    id_num: `522501199938279031`,
-    passport_num: `GFS34831`,
-    phone_num: '17623746352',
-    gender: "女",
-    age: 18,
-    health_code: '绿码',
-    is_student_abroad: "是",
-    is_broad: "是",
-    emergency_contact: "李四",
-    emergency_contact_phone: "17339473849",
-    nationality: "中国",
-    born_address: ["浙江", "杭州", "西湖"],
-    live_address: "这是详细地址",
-    laiqian: [
-        {
-            key: 1,
-            type: "飞机",
-            startPlace: "北京大兴机场",
-            status: "低风险",
-            endPlace: "贵阳龙洞堡机场",
-            typeNum: "EJ123",
-            seatNum: "F05",
-            startTime: "2020-07-01 12:34:34",
-            endTime: "2020-07-01 18:34:34",
-            destination: ["浙江", "杭州", "西湖"],
-            destinationDetail: "来黔目的地详细地址",
-        },
-        {
-            key: 2,
-            type: "飞机",
-            startPlace: "北京大兴机场",
-            status: "低风险",
-            endPlace: "贵阳龙洞堡机场",
-            typeNum: "EJ123",
-            seatNum: "F05",
-            startTime: "2020-07-01 12:34:34",
-            endTime: "2020-07-01 18:34:34",
-            destination: ["浙江", "杭州", "西湖"],
-            destinationDetail: "来黔目的地详细地址",
-        }
-    ],
-    entry: [
-        {
-            key: 1,
-            entrytype: "飞机",
-            entryPlace: "入境口岸",
-            entryNum: "入境班次",
-            entryTime: "2020-07-01 18:34:34",
-            entryStartPlace: "美国",
-            isHigh: "是"
-        },
-        {
-            key: 2,
-            entrytype: "飞机",
-            entryPlace: "入境口岸",
-            entryNum: "入境班次",
-            entryTime: "2020-07-01 18:34:34",
-            entryStartPlace: "美国",
-            isHigh: "是"
-        }
-    ]
-
-}
 class PageDetail extends Component {
 
     state = {
@@ -77,17 +12,17 @@ class PageDetail extends Component {
         laiqianPageInfo: {
             pageSize: 5,
             page: 1,
-            total: 50
+            total: 0
         },
         entryPageInfo: {
             pageSize: 5,
             page: 1,
-            total: 50
+            total: 0
         },
         fangyiPageInfo: {
             pageSize: 5,
             page: 1,
-            total: 50
+            total: 0
         },
         currentItem: null,
         inprovince_infos: [],
@@ -117,7 +52,8 @@ class PageDetail extends Component {
         {
             title: '出发地',
             render: item => {
-                return item.from_address || '-'
+                // return item.from_address || '-'
+                return item.from_address && item.from_address.length > 0 && item.from_address.split(',').join(' / ') || '-'
             }
         },
         {
@@ -154,28 +90,36 @@ class PageDetail extends Component {
             title: '票号/出发日期',
             render: item => {
                 let time = item.departure_time
-                let result = moment(new Date(time)).format('YYYY-MM-DD HH:mm:ss')
-                return result
+                if (time) {
+                    let result = moment(new Date(time)).format('YYYY-MM-DD')
+                    return result
+                } else {
+                    return '-'
+                }
             }
         },
         {
             title: '到达时间',
             render: item => {
                 let time = item.arrival_time
-                let result = moment(new Date(time)).format('YYYY-MM-DD HH:mm:ss')
-                return result
+                if (time) {
+                    let result = moment(new Date(time)).format('YYYY-MM-DD')
+                    return result
+                } else {
+                    return '-'
+                }
             }
         },
         {
             title: '来黔目的地',
             render: item => {
-                return item.from_address || '-'
+                return item.des_city ? item.des_city.split(',').join(' / ') : '-'
             }
         },
         {
             title: '来黔详细地址',
             render: item => {
-                return item.des_city ? item.des_city.split(',').join(' / ') : '-'
+                return item.des_address ? item.des_address : '-'
             }
         },
     ];
@@ -215,8 +159,12 @@ class PageDetail extends Component {
             title: '入境时间',
             render: item => {
                 let time = item.immigration_time
-                let result = moment(new Date(time)).format('YYYY-MM-DD HH:mm:ss')
-                return result
+                if (time) {
+                    let result = moment(new Date(time)).format('YYYY-MM-DD')
+                    return result
+                } else {
+                    return '-'
+                }
             }
         },
         {
@@ -244,41 +192,84 @@ class PageDetail extends Component {
             title: '核酸检测时间',
             render: item => {
                 let time = item.nat_date
-                let result = moment(new Date(time)).format('YYYY-MM-DD')
-                return result
+                if (time) {
+                    let result = moment(new Date(time)).format('YYYY-MM-DD')
+                    return result
+                } else {
+                    return '-'
+                }
+
             }
         },
         {
-            title: '核酸检测地点',
+            title: '检测地点',
             render: item => {
                 return item.nat_address || '-'
             }
         },
         {
-            title: '14天医学观察',
+            title: '检测结果',
+            render: item => {
+                return item.nat_result == 0 ? "阴性" : "阳性" || '-'
+            }
+        },
+        {
+            title: '二次核酸检测时间',
+            render: item => {
+                let time = item.twice_nat_date
+                if (time) {
+                    let result = moment(new Date(time)).format('YYYY-MM-DD')
+                    return result
+                } else {
+                    return '-'
+                }
+            }
+        },
+        {
+            title: '二次检测地点',
+            render: item => {
+                return item.twice_nat_address || '-'
+            }
+        },
+        {
+            title: '二次检测结果',
+            render: item => {
+                return item.twice_nat_result == 0 ? "阴性" : "阳性" || '-'
+            }
+        },
+        {
+            title: '14天集中隔离',
             render: item => {
                 return item.is_14_days_medical_observation == true ? "是" : "否"
             }
 
         },
         {
-            title: '观察开始时间',
+            title: '集中隔离开始时间',
             render: item => {
                 let time = item.observation_start
-                let result = moment(new Date(time)).format('YYYY-MM-DD')
-                return result
+                if (time) {
+                    let result = moment(new Date(time)).format('YYYY-MM-DD')
+                    return result
+                } else {
+                    return '-'
+                }
             }
         },
         {
-            title: '观察期满时间',
+            title: '集中隔离期满时间',
             render: item => {
                 let time = item.observation_end
-                let result = moment(new Date(time)).format('YYYY-MM-DD')
-                return result
+                if (time) {
+                    let result = moment(new Date(time)).format('YYYY-MM-DD')
+                    return result
+                } else {
+                    return '-'
+                }
             }
         },
         {
-            title: '观察地点',
+            title: '隔离期满地点',
             render: item => {
                 return item.observation_address || '-'
             }
@@ -293,19 +284,54 @@ class PageDetail extends Component {
             title: '隔离开始时间',
             render: item => {
                 let time = item.isolation_start
-                let result = moment(new Date(time)).format('YYYY-MM-DD')
-                return result
+                if (time) {
+                    let result = moment(new Date(time)).format('YYYY-MM-DD')
+                    return result
+                } else {
+                    return '-'
+                }
             }
         },
         {
-            title: '隔离期满',
+            title: '隔离期满时间',
             render: item => {
                 let time = item.isolation_end
-                let result = moment(new Date(time)).format('YYYY-MM-DD')
-                return result
+                if (time) {
+                    let result = moment(new Date(time)).format('YYYY-MM-DD')
+                    return result
+                } else {
+                    return '-'
+                }
             }
         }
     ];
+
+    laiqianPageChange = (page) => {
+        this.setState({
+            laiqianPageInfo: {
+                ...this.state.laiqianPageInfo,
+                page: page
+            }
+        })
+    }
+
+    entryPageChange = (page) => {
+        this.setState({
+            entryPageInfo: {
+                ...this.state.entryPageInfo,
+                page: page
+            }
+        })
+    }
+
+    fangyiPageChange = (page) => {
+        this.setState({
+            fangyiPageInfo: {
+                ...this.state.fangyiPageInfo,
+                page: page
+            }
+        })
+    }
 
     componentDidMount() {
         const { id } = this.state
@@ -341,7 +367,7 @@ class PageDetail extends Component {
             { text: '人员基本信息', link: '' },
             { text: '人员详情', link: '' }
         ]
-        let tag = null
+        let tag = '-'
         if (currentItem && currentItem.health_code == 4) {
             tag = <Tag color="red">红码</Tag>
         } else if (currentItem && currentItem.health_code == 3) {
@@ -433,7 +459,7 @@ class PageDetail extends Component {
                             showTotal(total) {
                                 return `每页${fangyiPageInfo.pageSize}条，共${total}条`
                             },
-                            onChange: this.fangyiPageInfo
+                            onChange: this.fangyiPageChange
                         }}
                     />
                 </div>

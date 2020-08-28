@@ -1,0 +1,149 @@
+{
+  "id": "1925007",
+  "name": "指挥调度",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "1136357",
+      "name": "检测",
+      "font_class": "jiance",
+      "unicode": "e63e",
+      "unicode_decimal": 58942
+    },
+    {
+      "icon_id": "5321787",
+      "name": "轨迹",
+      "font_class": "guiji",
+      "unicode": "e661",
+      "unicode_decimal": 58977
+    },
+    {
+      "icon_id": "8169800",
+      "name": "人员",
+      "font_class": "renyuan",
+      "unicode": "e60f",
+      "unicode_decimal": 58895
+    },
+    {
+      "icon_id": "9655540",
+      "name": "缩小",
+      "font_class": "suoxiao",
+      "unicode": "e66d",
+      "unicode_decimal": 58989
+    },
+    {
+      "icon_id": "11520420",
+      "name": "编辑",
+      "font_class": "bianji",
+      "unicode": "e75d",
+      "unicode_decimal": 59229
+    },
+    {
+      "icon_id": "5269216",
+      "name": "导出",
+      "font_class": "daochu",
+      "unicode": "e621",
+      "unicode_decimal": 58913
+    },
+    {
+      "icon_id": "14112185",
+      "name": "delete",
+      "font_class": "delete",
+      "unicode": "e60e",
+      "unicode_decimal": 58894
+    },
+    {
+      "icon_id": "380331",
+      "name": "dot",
+      "font_class": "dot",
+      "unicode": "e63f",
+      "unicode_decimal": 58943
+    },
+    {
+      "icon_id": "6464899",
+      "name": "单位",
+      "font_class": "danwei",
+      "unicode": "e64d",
+      "unicode_decimal": 58957
+    },
+    {
+      "icon_id": "7762180",
+      "name": "用户名",
+      "font_class": "ziyuanxhdpi",
+      "unicode": "e62d",
+      "unicode_decimal": 58925
+    },
+    {
+      "icon_id": "8184148",
+      "name": "手机",
+      "font_class": "shouji",
+      "unicode": "e66e",
+      "unicode_decimal": 58990
+    },
+    {
+      "icon_id": "9434441",
+      "name": "邮箱",
+      "font_class": "youxiang",
+      "unicode": "e6cf",
+      "unicode_decimal": 59087
+    },
+    {
+      "icon_id": "13860830",
+      "name": "密码",
+      "font_class": "mima",
+      "unicode": "e7b6",
+      "unicode_decimal": 59318
+    },
+    {
+      "icon_id": "13840509",
+      "name": "登录后账户",
+      "font_class": "dengluhouzhanghu",
+      "unicode": "e7b1",
+      "unicode_decimal": 59313
+    },
+    {
+      "icon_id": "13866635",
+      "name": "设置",
+      "font_class": "weibiaoti-_huaban",
+      "unicode": "e64c",
+      "unicode_decimal": 58956
+    },
+    {
+      "icon_id": "14421790",
+      "name": "退出",
+      "font_class": "tuichu_huaban1",
+      "unicode": "e686",
+      "unicode_decimal": 59014
+    },
+    {
+      "icon_id": "741927",
+      "name": "统计分析",
+      "font_class": "tongjifenxi",
+      "unicode": "e63d",
+      "unicode_decimal": 58941
+    },
+    {
+      "icon_id": "1719299",
+      "name": "人员列表",
+      "font_class": "renyuanliebiao",
+      "unicode": "e7b4",
+      "unicode_decimal": 59316
+    },
+    {
+      "icon_id": "2958958",
+      "name": "指挥调度",
+      "font_class": "zhihuitiaodu",
+      "unicode": "e612",
+      "unicode_decimal": 58898
+    },
+    {
+      "icon_id": "14197974",
+      "name": "指令",
+      "font_class": "icon_list_zhiling",
+      "unicode": "e61c",
+      "unicode_decimal": 58908
+    }
+  ]
+}

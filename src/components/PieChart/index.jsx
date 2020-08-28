@@ -2,15 +2,10 @@ import React, { Component } from 'react';
 import './index.scss'
 import { Chart } from '@antv/g2';
 
-const data = [
-    { item: '境外来黔', count: 40, percent: 0.40 },
-    { item: '国内来黔', count: 50, percent: 0.50 },
-    { item: '其他', count: 10, percent: 0.10 },
-];
-
 class PieChart extends Component {
 
     componentDidMount() {
+        let data = this.props.data
         let dom = this.refs.chart
         this.chart = new Chart({
             container: dom,
@@ -44,6 +39,12 @@ class PieChart extends Component {
             .adjust('stack');
 
         this.chart.interaction('element-active');
+        this.chart.render();
+    }
+
+    componentDidUpdate() {
+        let data = this.props.data
+        this.chart.changeData(data);
         this.chart.render();
     }
 

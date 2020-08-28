@@ -1,286 +1,340 @@
 import React, { Component } from 'react';
 import { Breadcrumb, Form, Row, Col, Input, InputNumber, Radio, Select, Cascader, Tooltip, DatePicker, Button, message, Table, Popconfirm, Modal, Descriptions, Upload, Tag } from 'antd';
 import './index.scss'
+import request from '../../../utils/request'
+import API from '../../../api/index'
+import moment from 'moment';
+import { observer, inject } from 'mobx-react';
+import { toJS } from 'mobx'
 
-const selectedPersonlist = (() => {
-    let arr = []
-    for (let i = 0; i < 2; i++) {
-        arr.push({
-            key: i,
-            orderStatus: i % 2 == 0 ? '待创建' : '已创建',
-            time: '2020-09-21  08:50:08',
-            name: `张三${i}`,
-            id_num: `52250119993827903${i}`,
-            passport_num: `GFS3483${i}`,
-            phone_num: '17623746352',
-            gender: "女",
-            age: 18,
-            health_code: i % 2 == 0 ? '绿码' : i % 3 == 0 ? '橙码' : '红码',
-            is_student_abroad: "是",
-            is_broad: "是",
-            contactname: "李四",
-            contactphone_num: "17339473849",
-            nationality: "中国",
-            domicile: ["浙江", "杭州", "西湖"],
-            address: "这是详细地址",
-            type: "飞机",
-            startPlace: "北京大兴机场",
-            status: "低风险",
-            endPlace: "贵阳龙洞堡机场",
-            typeNum: "EJ123",
-            seatNum: "F05",
-            startTime: "2020-07-01 12:34:34",
-            endTime: "2020-07-01 18:34:34",
-            destination: ["浙江", "杭州", "西湖"],
-            destinationDetail: "来黔目的地详细地址",
-            entrytype: "飞机",
-            entryPlace: "入境口岸",
-            entryNum: "入境班次",
-            entryTime: "2020-07-01 18:34:34",
-            entryStartPlace: "美国",
-            isHigh: "是"
-        })
-    }
-    return arr
-})()
-const signData = {
-    depart: "签收单位",
-    ip: "10.4.12.131",
-    time: "2020-07-08 09:05:33",
-    person: "张三",
-    desc: "无"
-}
-const feedbackdataSource = (() => {
-    let arr = []
-    for (let i = 0; i < 2; i++) {
-        arr.push({
-            key: i,
-            depart: `单位${i}`,
-            desc: `这是反馈内容-${i}`,
-            result: `这是处理意见-${i}`,
-            status: '待签收'
-        })
-    }
-    return arr
-})()
-const info = {
-    orderStatus: '待创建',
-    time: '2020-09-21  08:50:08',
-    name: `张三`,
-    id_num: `52250119993827903`,
-    passport_num: `GFS3483`,
-    phone_num: '17623746352',
-    gender: "女",
-    age: 18,
-    health_code: '绿码',
-    is_student_abroad: "是",
-    is_broad: "是",
-    contactname: "李四",
-    contactphone_num: "17339473849",
-    nationality: "中国",
-    domicile: ["浙江", "杭州", "西湖"],
-    address: "这是详细地址",
-    type: "飞机",
-    startPlace: "北京大兴机场",
-    status: "低风险",
-    endPlace: "贵阳龙洞堡机场",
-    typeNum: "EJ123",
-    seatNum: "F05",
-    startTime: "2020-07-01 12:34:34",
-    endTime: "2020-07-01 18:34:34",
-    destination: ["浙江", "杭州", "西湖"],
-    destinationDetail: "来黔目的地详细地址",
-    entrytype: "飞机",
-    entryPlace: "入境口岸",
-    entryNum: "入境班次",
-    entryTime: "2020-07-01 18:34:34",
-    entryStartPlace: "美国",
-    isHigh: "是"
-}
-
+@inject("commonStore")
+@observer
 class InstructionDetail extends Component {
 
     state = {
         id: this.props.match.params.id,
+        users: [],
+        orgs: [],
         currentItem: null,
         modalVisible: false,
         modalTitle: null,
-        feedbackPageInfo: {
-            pageSize: 10,
-            page: 1,
-            total: 50
-        },
         pageInfo: {
             pageSize: 10,
             page: 1,
-            total: 50
+            total: 0
         },
         innerModalVisible: false,
-        innerModalTitle: null
+        innerModalTitle: null,
+        detailItem: null
+    }
+
+    getUsers = () => {
+        request.get(API.Common.users)
+            .then(res => {
+                if (res.success) {
+                    this.setState({
+                        users: res.data
+                    }, () => {
+                        this.getOrgs()
+                    })
+                }
+            })
+    }
+
+    getOrgs = () => {
+        request.get(API.Common.orgs)
+            .then(res => {
+                if (res.success) {
+                    this.setState({
+                        orgs: res.data
+                    }, () => {
+                        const { users, orgs } = this.state
+                        const { id } = this.props.match.params
+                        request.get(`${API.Command.command}${id}/`)
+                            .then(res => {
+                                if (res.success) {
+                                    let info = res.data
+                                    if (info && info.cc_orgs) {
+                                        let cc_users = info.cc_orgs
+                                        let cc_users_item = []
+                                        if (cc_users.length > 0) {
+                                            for (let i = 0; i < cc_users.length; i++) {
+                                                cc_users_item.push(cc_users[i].cc_org.org_name)
+                                            }
+                                        }
+                                        info['cc_users_item'] = cc_users_item
+                                    }
+                                    if (info && info.org_to) {
+                                        let result = orgs.filter(item => { return item.id == info.org_to })
+                                        if (result && result.length > 0) {
+                                            info['user_to_text'] = result[0].org_name
+                                        }
+                                    }
+                                    if (info && info.draft_user) {
+                                        let result = users.filter(item => { return item.id == info.draft_user })
+                                        if (result) {
+                                            info['draft_user_text'] = result[0].username
+                                        }
+                                    }
+                                    if (info && info.approve_user) {
+                                        let result = users.filter(item => { return item.id == info.approve_user })
+                                        if (result) {
+                                            info['approve_user_text'] = result[0].username
+                                        }
+                                    }
+                                    if (info && info.sign_user) {
+                                        let result = users.filter(item => { return item.id == info.sign_user })
+                                        if (result) {
+                                            info['sign_user_text'] = result[0].username
+                                        }
+                                    }
+                                    this.setState({
+                                        currentItem: info
+                                    })
+                                }
+                            })
+                    })
+                }
+            })
     }
 
     componentDidMount() {
-        let info = {
-            header: "贵州省疫情防控领导小组社会防控组文件",
-            num: "黔疫情社会防控〔2020〕2667号",
-            group: "省疫情社会防控组",
-            title: "疫情防控指令（20201277）",
-            subtitle: "",
-            cont: "<p>这是指令内容</p>",
-            subject: ["主题1", "主题2"],
-            receiver: "单位1",
-            cc: ['单位1', '单位2'],
-            isExamine: "否",
-            draft: "拟稿人",
-            verification: "核稿人",
-            issue: "签发人",
-            selectedPersonlist: selectedPersonlist,
-            status: '待下发',
-            file: [{ name: "附件1", link: "" }, { name: "附件2", link: "" }],
-            time: "2020年7月8日"
-        }
-        this.setState({
-            currentItem: info
-        })
+        this.getUsers()
     }
 
-    columns = [
-        {
-            title: '姓名',
-            dataIndex: 'name',
-        },
-        {
-            title: '来黔方式',
-            dataIndex: 'type',
-        },
-        {
-            title: '出发地',
-            dataIndex: 'startPlace',
-        },
-        {
-            title: '目的地',
-            render: item => {
-                return item && item.destination && item.destination.length && item.destination.join(" / ")
-            }
-        },
-        {
-            title: '是否入境',
-            filters: [
-                {
-                    text: '是',
-                    value: '是',
-                },
-                {
-                    text: '否',
-                    value: '否',
-                }
-            ],
-            filterMultiple: false,
-            onFilter: (value, record) => record.is_broad === value,
-            render: item => {
-                return item.is_broad
-            }
-        },
-        {
-            title: '出发地风险等级',
-            filters: [
-                {
-                    text: '低风险',
-                    value: '低风险',
-                },
-                {
-                    text: '中风险',
-                    value: '中风险',
-                },
-                {
-                    text: '高风险',
-                    value: '高风险',
-                },
-            ],
-            filterMultiple: false,
-            onFilter: (value, record) => record.status === value,
-            render: item => {
-                if (item.status == "高风险") {
-                    return <Tag color="red">{item.status}</Tag>
-                } else if (item.status == "中风险") {
-                    return <Tag color="orange">{item.status}</Tag>
-                } else if (item.status == "低风险") {
-                    return <Tag color="green">{item.status}</Tag>
-                }
-            }
-        },
-        {
-            title: '指令状态',
-            filters: [
-                {
-                    text: '已创建',
-                    value: '已创建',
-                },
-                {
-                    text: '待创建',
-                    value: '待创建',
-                }
-            ],
-            filterMultiple: false,
-            onFilter: (value, record) => record.orderStatus === value,
-            render: item => {
-                if (item.orderStatus == "已创建") {
-                    return <span><i className="iconfont" style={{ color: "#108ee9" }}>&#xe63f;</i>{item.orderStatus}</span>
-                } else if (item.orderStatus == "待创建") {
-                    return <span><i className="iconfont">&#xe63f;</i>{item.orderStatus}</span>
-                }
-            }
-        },
-        {
-            title: '录入时间',
-            dataIndex: 'time',
-        },
-        {
-            title: '操作',
-            render: item => (
-                <div>
-                    <span style={{ cursor: 'pointer', color: '#40a9ff', marginRight: '15px' }} onClick={() => this.showTrackDetailModal(item)}>详情</span>
-                </div>
-            ),
-        },
-    ];
-
-    // 反馈详情表格列设置
-    getFeedbackColumns = () => {
+    getColumns = (role) => {
         let columns = [
             {
-                title: '反馈单位',
-                dataIndex: 'depart',
-            },
-            {
-                title: '反馈内容',
-                dataIndex: 'desc',
-            },
-            {
-                title: '处理意见',
-                dataIndex: 'result',
-            },
-            {
-                title: '处理状态',
+                title: '姓名',
                 render: item => {
-                    if (item.status == "待签收") {
-                        return <span><i className="iconfont">&#xe63f;</i>{item.status}</span>
-                    } else if (item.status == "已拒签") {
-                        return <span><i className="iconfont" style={{ color: "#f50" }}>&#xe63f;</i>{item.status}</span>
-                    } else if (item.status == "已签收") {
-                        return <span><i className="iconfont" style={{ color: "#87d068" }}>&#xe63f;</i>{item.status}</span>
+                    return item.person.name || '-'
+                }
+            },
+            {
+                title: '来黔方式',
+                filters: [
+                    {
+                        text: '飞机',
+                        value: 1,
+                    },
+                    {
+                        text: '高铁',
+                        value: 2,
+                    },
+                    {
+                        text: '汽车',
+                        value: 3,
+                    },
+                    {
+                        text: '自行车',
+                        value: 4,
+                    },
+                    {
+                        text: '步行',
+                        value: 5,
                     }
+                ],
+                filterMultiple: false,
+                onFilter: (value, record) => record.in_province_info && record.in_province_info.transport_type === value,
+                render: item => {
+                    let text = '-'
+                    if (item.in_province_info) {
+                        if (item.in_province_info.transport_type == 1) {
+                            text = "飞机"
+                        } else if (item.in_province_info.transport_type == 2) {
+                            text = "高铁"
+                        } else if (item.in_province_info.transport_type == 3) {
+                            text = "汽车"
+                        } else if (item.in_province_info.transport_type == 4) {
+                            text = "自行车"
+                        } else if (item.in_province_info.transport_type == 5) {
+                            text = "步行"
+                        }
+                    }
+                    return text
+                }
+            },
+            {
+                title: '出发地',
+                render: item => {
+                    // return item.in_province_info && item.in_province_info.from_address || '-'
+                    return item.in_province_info && item.in_province_info.from_address && item.in_province_info.from_address.length > 0 && item.in_province_info.from_address.split(',').join(' / ') || '-'
+                }
+            },
+            {
+                title: '到达地',
+                render: item => {
+                    return item.in_province_info && item.in_province_info.station || '-'
+                }
+            },
+            {
+                title: '来黔目的地',
+                render: item => {
+                    return item.in_province_info && item.in_province_info.des_city && item.in_province_info.des_city.length > 0 && item.in_province_info.des_city.split(',').join(' / ') || '-'
+                }
+            },
+            {
+                title: '是否入境',
+                filters: [
+                    {
+                        text: '是',
+                        value: true,
+                    },
+                    {
+                        text: '否',
+                        value: false,
+                    }
+                ],
+                filterMultiple: false,
+                onFilter: (value, record) => record.person.is_broad === value,
+                render: item => {
+                    return item.person.is_broad == true ? "是" : "否"
+                }
+            },
+            {
+                title: '出发地风险等级',
+                filters: [
+                    {
+                        text: '低风险',
+                        value: 1,
+                    },
+                    {
+                        text: '中风险',
+                        value: 2,
+                    },
+                    {
+                        text: '高风险',
+                        value: 3,
+                    },
+                ],
+                filterMultiple: false,
+                onFilter: (value, record) => record.in_province_info && record.in_province_info.from_address_level === value,
+                render: item => {
+                    if (item.in_province_info) {
+                        if (item.in_province_info.from_address_level == 3) {
+                            return <Tag color="red">高风险</Tag>
+                        } else if (item.in_province_info.from_address_level == 2) {
+                            return <Tag color="orange">中风险</Tag>
+                        } else if (item.in_province_info.from_address_level == 1) {
+                            return <Tag color="green">低风险</Tag>
+                        }
+                    } else {
+                        return '-'
+                    }
+                }
+            },
+            {
+                title: '轨迹状态',
+                filters: [
+                    {
+                        text: '待发送',
+                        value: 1,
+                    },
+                    {
+                        text: '已发送-待签收',
+                        value: 2,
+                    },
+                    {
+                        text: '待反馈',
+                        value: 3,
+                    },
+                    {
+                        text: '已反馈-待签收',
+                        value: 4,
+                    },
+                    {
+                        text: '已反馈-已拒签',
+                        value: 5,
+                    },
+                    {
+                        text: '已完成',
+                        value: 6,
+                    }
+                ],
+                filterMultiple: false,
+                onFilter: (value, record) => record.track_status == value,
+                render: item => {
+                    if (item.track_status == 1) {
+                        return <span><i className="iconfont" style={{ color: "#108ee9" }}>&#xe63f;</i>待发送</span>
+                    } else if (item.track_status == 2) {
+                        return <span><i className="iconfont">&#xe63f;</i>已发送-待签收</span>
+                    } else if (item.track_status == 3) {
+                        return <span><i className="iconfont">&#xe63f;</i>待反馈</span>
+                    } else if (item.track_status == 4) {
+                        return <span><i className="iconfont">&#xe63f;</i>已反馈-待签收</span>
+                    } else if (item.track_status == 5) {
+                        return <span><i className="iconfont">&#xe63f;</i>已反馈-已拒签</span>
+                    } else if (item.track_status == 6) {
+                        return <span><i className="iconfont">&#xe63f;</i>已完成</span>
+                    }
+                }
+            },
+            {
+                title: '录入时间',
+                render: item => {
+                    let time = item.create_time
+                    let result = moment(new Date(time)).format('YYYY-MM-DD HH:mm:ss')
+                    return result
                 }
             },
             {
                 title: '操作',
                 render: item => (
                     <div>
-                        <span style={{ cursor: 'pointer', color: '#40a9ff' }}>附件</span>
+                        <span style={{ cursor: 'pointer', color: '#40a9ff', marginRight: '15px' }} onClick={() => this.showTrackDetailModal(item)}>详情</span>
                     </div>
                 ),
             },
         ];
+
+        if (role != 1) {
+            columns.splice(7, 1, {
+                title: '轨迹状态',
+                filters: [
+                    {
+                        text: '待发送',
+                        value: 1,
+                    },
+                    {
+                        text: '待签收',
+                        value: 2,
+                    },
+                    {
+                        text: '待反馈',
+                        value: 3,
+                    },
+                    {
+                        text: '已反馈-待签收',
+                        value: 4,
+                    },
+                    {
+                        text: '已反馈-被拒签',
+                        value: 5,
+                    },
+                    {
+                        text: '已完成',
+                        value: 6,
+                    }
+                ],
+                filterMultiple: false,
+                onFilter: (value, record) => record.track_status == value,
+                render: item => {
+                    if (item.track_status == 1) {
+                        return <span><i className="iconfont" style={{ color: "#108ee9" }}>&#xe63f;</i>待发送</span>
+                    } else if (item.track_status == 2) {
+                        return <span><i className="iconfont" style={{ color: "#108ee9" }}>&#xe63f;</i>待签收</span>
+                    } else if (item.track_status == 3) {
+                        return <span><i className="iconfont">&#xe63f;</i>待反馈</span>
+                    } else if (item.track_status == 4) {
+                        return <span><i className="iconfont">&#xe63f;</i>已反馈-待签收</span>
+                    } else if (item.track_status == 5) {
+                        return <span><i className="iconfont">&#xe63f;</i>已反馈-被拒签</span>
+                    } else if (item.track_status == 6) {
+                        return <span><i className="iconfont">&#xe63f;</i>已完成</span>
+                    }
+                }
+            })
+        }
 
         return columns
     }
@@ -299,23 +353,31 @@ class InstructionDetail extends Component {
         return dom
     }
 
-    // 反馈弹窗页码改变的回调
-    feedbackPageChange = (page) => {
-        console.log(page)
-    }
-
     // 人员列表页码改变回调
     pageChange = (page) => {
-        console.log(page)
+        this.setState({
+            pageInfo: {
+                ...this.state.pageInfo,
+                page: page
+            }
+        })
     }
 
     // 弹窗显示
     showDetailModal = (type) => {
-        console.log(type)
+        const { currentItem } = this.state
         this.setState({
             modalVisible: true,
-            modalTitle: type
+            modalTitle: type,
         })
+        if (type == "人员轨迹") {
+            this.setState({
+                pageInfo: {
+                    ...this.state.pageInfo,
+                    total: currentItem.track_records.length
+                }
+            })
+        }
     }
 
     // 弹窗点击取消时的回调
@@ -329,11 +391,7 @@ class InstructionDetail extends Component {
     // 弹窗点击确定时的回调
     modalOk = () => {
         let { modalTitle } = this.state
-        if (modalTitle == '签收详情') {
-            this.modalCancel()
-        } else if (modalTitle == '反馈详情') {
-            this.modalCancel()
-        } else if (modalTitle == "人员轨迹") {
+        if (modalTitle == "人员轨迹") {
             this.modalCancel()
         }
     }
@@ -342,7 +400,8 @@ class InstructionDetail extends Component {
     showTrackDetailModal = (item) => {
         this.setState({
             innerModalTitle: "详情",
-            innerModalVisible: true
+            innerModalVisible: true,
+            detailItem: item
         })
     }
 
@@ -355,21 +414,44 @@ class InstructionDetail extends Component {
     }
 
     // 渲染指令状态
-    renderStatus = () => {
+    renderStatus = (role) => {
         let { currentItem } = this.state
         let dom = null
         if (currentItem && currentItem.status) {
-            if (currentItem.status == "待下发") {
-                dom = <span><i className="iconfont">&#xe63f;</i>{currentItem.status}</span>
-            } else if (currentItem.status == "待签收") {
-                dom = <span><i className="iconfont" style={{ color: "#f50" }}>&#xe63f;</i>{currentItem.status}</span>
-            } else if (currentItem.status == "待反馈") {
-                dom = <span><i className="iconfont" style={{ color: "orange" }}>&#xe63f;</i>{currentItem.status}</span>
+            if (currentItem.status == 1) {
+                dom = <span><i className="iconfont">&#xe63f;</i>待发送</span>
+            } else if (currentItem.status == 2) {
+                dom = <span><i className="iconfont" style={{ color: "#f50" }}>&#xe63f;</i>{role == 1 ? "已发送-待签收" : "待签收"}</span>
+            } else if (currentItem.status == 3) {
+                dom = <span><i className="iconfont" style={{ color: "orange" }}>&#xe63f;</i>待反馈</span>
+            } else if (currentItem.status == 4) {
+                dom = <span><i className="iconfont" style={{ color: "orange" }}>&#xe63f;</i>已反馈-待签收</span>
+            } else if (currentItem.status == 5) {
+                dom = <span><i className="iconfont" style={{ color: "orange" }}>&#xe63f;</i>{role == 1 ? "已反馈-已拒签" : "已反馈-被拒签"}</span>
             } else if (currentItem.status == "处理中") {
                 dom = <span><i className="iconfont" style={{ color: "#108ee9" }}>&#xe63f;</i>{currentItem.status}</span>
-            } else if (currentItem.status == "已完成") {
-                dom = <span><i className="iconfont" style={{ color: "#87d068" }}>&#xe63f;</i>{currentItem.status}</span>
+            } else if (currentItem.status == 6) {
+                dom = <span><i className="iconfont" style={{ color: "#87d068" }}>&#xe63f;</i>已完成</span>
+            } else if (currentItem.status == -1) {
+                dom = <span><i className="iconfont" style={{ color: "#87d068" }}>&#xe63f;</i>已撤回</span>
             }
+        }
+        return dom
+    }
+
+    // 交通方式渲染
+    renderType = (type = '') => {
+        let dom = ''
+        if (type == 1) {
+            dom = "飞机"
+        } else if (type == 2) {
+            dom = "高铁"
+        } else if (type == 3) {
+            dom = "汽车"
+        } else if (type == 4) {
+            dom = "自行车"
+        } else if (type == 5) {
+            dom = "步行"
         }
         return dom
     }
@@ -391,18 +473,35 @@ class InstructionDetail extends Component {
     }
 
     render() {
-        const { currentItem, modalTitle, modalVisible, feedbackPageInfo, pageInfo, innerModalTitle, innerModalVisible } = this.state
+        const { currentItem, modalTitle, modalVisible, pageInfo, innerModalTitle, innerModalVisible, detailItem } = this.state
         let breadlist = [
             { text: '指令管理', link: '' },
             { text: '指令详情', link: '' }
         ]
-        let tag = null
-        if (info && info.health_code == "红码") {
-            tag = <Tag color="red">{info.health_code}</Tag>
-        } else if (info && info.health_code == "橙码") {
-            tag = <Tag color="orange">{info.health_code}</Tag>
-        } else if (info && info.health_code == "绿码") {
-            tag = <Tag color="green">{info.health_code}</Tag>
+        let tag = '-'
+        if (detailItem && detailItem.person && detailItem.person.health_code == 4) {
+            tag = <Tag color="red">红码</Tag>
+        } else if (detailItem && detailItem.person && detailItem.person.health_code == 3) {
+            tag = <Tag color="orange">橙码</Tag>
+        } else if (detailItem && detailItem.person && detailItem.person.health_code == 1) {
+            tag = <Tag color="green">绿码</Tag>
+        } else if (detailItem && detailItem.person && detailItem.person.health_code == 2) {
+            tag = <Tag color="gold">黄码</Tag>
+        } else if (detailItem && detailItem.person && detailItem.person.health_code == 5) {
+            tag = <Tag color="purple">紫码</Tag>
+        }
+        let from_address_level = '-'
+        if (detailItem && detailItem.in_province_info && detailItem.in_province_info.from_address_level == 1) {
+            from_address_level = '低风险'
+        } else if (detailItem && detailItem.in_province_info && detailItem.in_province_info.from_address_level == 2) {
+            from_address_level = '中风险'
+        } else if (detailItem && detailItem.in_province_info && detailItem.in_province_info.from_address_level == 3) {
+            from_address_level = '高风险'
+        }
+        let userinfo = toJS(this.props.commonStore.userinfo)
+        let role = null
+        if (userinfo) {
+            role = userinfo.org && userinfo.org.org_level || 0
         }
         return (
             <div className="page-instructiondetail">
@@ -425,33 +524,33 @@ class InstructionDetail extends Component {
                         <div className="real-article" style={{ fontFamily: "gb2312", color: "#000", display: "flex", justifyContent: "center" }} ref="article">
                             <div style={{ width: "640px", textAlign: "center", fontFamily: "gb2312" }}>
                                 <div style={{ fontSize: "20px", color: "red", fontWeight: "bold" }}
-                                >{currentItem && currentItem.header}</div>
-                                <div style={{ fontSize: "18px", marginTop: "10px" }}>{currentItem && currentItem.num}</div>
+                                >{currentItem && currentItem.command_head}</div>
+                                <div style={{ fontSize: "18px", marginTop: "10px" }}>{currentItem && currentItem.command_num}</div>
                                 <div style={{ borderTop: "2px solid red", width: "100%", margin: "7px 0" }}></div>
-                                <div style={{ fontSize: "18px", fontFamily: "黑体", fontWeight: "bold", marginTop: "16px" }}>{currentItem && currentItem.title}</div>
-                                <div style={{ fontSize: "16px", fontFamily: "黑体", marginBottom: '16px' }}>{currentItem && currentItem.subtitle}</div>
+                                <div style={{ fontSize: "18px", fontFamily: "黑体", fontWeight: "bold", marginTop: "16px" }}>{currentItem && currentItem.command_title}</div>
+                                <div style={{ fontSize: "16px", fontFamily: "黑体", marginBottom: '16px' }}>{currentItem && currentItem.command_vice_title}</div>
 
-                                <div style={{ fontSize: "14px", fontFamily: "gb2312", textAlign: "left" }} dangerouslySetInnerHTML={{ __html: currentItem && currentItem.cont }}></div>
-                                
+                                <div style={{ fontSize: "14px", fontFamily: "gb2312", textAlign: "left" }} dangerouslySetInnerHTML={{ __html: currentItem && currentItem.command_content }}></div>
+
                                 <div style={{ fontSize: "18px", fontFamily: "黑体", display: "flex" }}>
                                     <span style={{ fontWeight: "bold", flexShrink: "0", display: "inline-block", marginTop: "-2px" }}>主题词：</span>
-                                    <span style={{ fontSize: "14px", textAlign: "left" }}>{currentItem && currentItem.subject && currentItem.subject.length > 0 && currentItem.subject.join("；")}</span>
+                                    <span style={{ fontSize: "14px", textAlign: "left" }}>{currentItem && currentItem.key_words}</span>
                                 </div>
                                 <div style={{ borderTop: "2px solid red", width: "100%", margin: "7px 0" }}></div>
                                 <div style={{ fontSize: "14px", textAlign: "left" }}>
                                     <div>抄送：</div>
-                                    <div style={{ textIndent: "28px" }}>{currentItem && currentItem.cc && currentItem.cc.length > 0 && currentItem.cc.join("、")}</div>
+                                    <div style={{ textIndent: "28px" }}>{currentItem && currentItem.cc_users_item && currentItem.cc_users_item.length > 0 && currentItem.cc_users_item.join("、")}</div>
                                 </div>
                                 <div style={{ borderTop: "2px solid red", width: "100%", margin: "7px 0" }}></div>
                                 <div style={{ fontSize: "14px", display: "flex", justifyContent: "space-between" }}>
-                                    <div>{currentItem && currentItem.group}</div>
-                                    <div>{currentItem && currentItem.time} 印发</div>
+                                    <div>{currentItem && currentItem.command_group}</div>
+                                    <div>{currentItem && moment(new Date(currentItem.create_time)).format('YYYY年MM月DD日')} 印发</div>
                                 </div>
                                 <div style={{ borderTop: "2px solid red", width: "100%", margin: "7px 0" }}></div>
                                 <div style={{ fontSize: "14px", textAlign: "left", display: "flex", justifyContent: "space-between" }}>
-                                    <div>签发：{currentItem && currentItem.issue}</div>
-                                    <div>核稿：{currentItem && currentItem.verification}</div>
-                                    <div>拟稿：{currentItem && currentItem.draft}</div>
+                                    <div>拟稿：{currentItem && currentItem.draft_user_text}</div>
+                                    <div>核稿：{currentItem && currentItem.approve_user_text}</div>
+                                    <div>签发：{currentItem && currentItem.sign_user_text}</div>
                                 </div>
                             </div>
                         </div>
@@ -462,18 +561,20 @@ class InstructionDetail extends Component {
                         </div>
                         <div>
                             <Descriptions column={1}>
-                                <Descriptions.Item label="接收单位">{currentItem && currentItem.receiver}</Descriptions.Item>
-                                <Descriptions.Item label="指令状态">{this.renderStatus()}</Descriptions.Item>
-                                {
-                                    currentItem && currentItem.status != "待下发" && currentItem.status != "待签收" &&
+                                <Descriptions.Item label="接收单位">{currentItem && currentItem.user_to_text}</Descriptions.Item>
+                                <Descriptions.Item label="指令状态">{this.renderStatus(role)}</Descriptions.Item>
+                                {/** 
+                                    currentItem && currentItem.status != 1 && currentItem.status != 2 &&
                                     <Descriptions.Item label="签收详情"><Button type="link" onClick={() => this.showDetailModal("签收详情")}>详情查看</Button></Descriptions.Item>
-                                }
+                                */}
                                 {
                                     currentItem && (currentItem.status == "处理中" || currentItem.status == "已完成") &&
                                     <Descriptions.Item label="反馈详情"><Button type="link" onClick={() => this.showDetailModal("反馈详情")}>详情查看</Button></Descriptions.Item>
                                 }
                                 <Descriptions.Item label="人员轨迹"><Button type="link" onClick={() => this.showDetailModal("人员轨迹")}>详情查看</Button></Descriptions.Item>
-                                <Descriptions.Item label="附件详情" className="file-desc">{this.renderFile()}</Descriptions.Item>
+                                {/** 
+                                    <Descriptions.Item label="附件详情" className="file-desc">{this.renderFile()}</Descriptions.Item>
+                                */}
                             </Descriptions>
                         </div>
                     </div>
@@ -491,47 +592,19 @@ class InstructionDetail extends Component {
                     footer={null}
                 >
                     {
-                        modalTitle && modalTitle == "签收详情" &&
-                        <Descriptions column={2}>
-                            <Descriptions.Item label="签收单位">{signData.depart}</Descriptions.Item>
-                            <Descriptions.Item label="IP地址">{signData.ip}</Descriptions.Item>
-                            <Descriptions.Item label="签收时间">{signData.time}</Descriptions.Item>
-                            <Descriptions.Item label="签收人">{signData.person}</Descriptions.Item>
-                            <Descriptions.Item label="签收意见">{signData.desc}</Descriptions.Item>
-                        </Descriptions>
-                    }
-                    {
-                        modalTitle && modalTitle == "反馈详情" &&
-                        <div>
-                            <Table
-                                columns={this.getFeedbackColumns()}
-                                dataSource={feedbackdataSource}
-                                pagination={{
-                                    pageSize: feedbackPageInfo.pageSize,
-                                    current: feedbackPageInfo.page,
-                                    showQuickJumper: true,
-                                    total: feedbackPageInfo.total,
-                                    showTotal(total) {
-                                        return `每页10条，共${total}条`
-                                    },
-                                    onChange: this.feedbackPageChange
-                                }}
-                            />
-                        </div>
-                    }
-                    {
                         modalTitle && modalTitle == "人员轨迹" &&
                         <div>
                             <Table
-                                columns={this.columns}
-                                dataSource={currentItem && currentItem.selectedPersonlist}
+                                columns={this.getColumns()}
+                                dataSource={currentItem && currentItem.track_records}
+                                rowKey="id"
                                 pagination={{
                                     pageSize: pageInfo.pageSize,
                                     current: pageInfo.page,
                                     showQuickJumper: true,
                                     total: pageInfo.total,
                                     showTotal(total) {
-                                        return `每页10条，共${total}条`
+                                        return `每页${pageInfo.pageSize}条，共${total}条`
                                     },
                                     onChange: this.pageChange
                                 }}
@@ -549,43 +622,69 @@ class InstructionDetail extends Component {
                     footer={null}
                     wrapClassName="instruction-detail-person-modal"
                 >
-                    <Descriptions title="人员基本信息">
-                        <Descriptions.Item label="姓名">{info.name}</Descriptions.Item>
-                        <Descriptions.Item label="身份证">{info.id_num}</Descriptions.Item>
-                        <Descriptions.Item label="性别">{info.gender}</Descriptions.Item>
-                        <Descriptions.Item label="电话">{info.phone_num}</Descriptions.Item>
-                        <Descriptions.Item label="护照号">{info.passport_num}</Descriptions.Item>
-                        <Descriptions.Item label="是否为留学生">{info.is_student_abroad}</Descriptions.Item>
-                        <Descriptions.Item label="健康码">{tag}</Descriptions.Item>
-                        <Descriptions.Item label="年龄">{info.age}</Descriptions.Item>
-                        <Descriptions.Item label="是否为入境人员">{info.is_broad}</Descriptions.Item>
-                        <Descriptions.Item label="紧急联系人">{info.contactname}</Descriptions.Item>
-                        <Descriptions.Item label="紧急联系电话">{info.contactmobile}</Descriptions.Item>
-                        <Descriptions.Item label="国籍">{info.nationality}</Descriptions.Item>
-                        <Descriptions.Item label="户籍地">{info.domicile.length > 0 ? info.domicile.join(' / ') : '无'}</Descriptions.Item>
-                        <Descriptions.Item label="住址">{info.address}</Descriptions.Item>
-                    </Descriptions>
-                    <Descriptions title="来黔信息">
-                        <Descriptions.Item label="来黔方式">{info.type}</Descriptions.Item>
-                        <Descriptions.Item label="出发地">{info.startPlace}</Descriptions.Item>
-                        <Descriptions.Item label="出发地风险等级">{info.status}</Descriptions.Item>
-                        <Descriptions.Item label="到达地">{info.endPlace}</Descriptions.Item>
-                        <Descriptions.Item label="航班/车次">{info.typeNum}</Descriptions.Item>
-                        <Descriptions.Item label="座位号">{info.seatNum}</Descriptions.Item>
-                        <Descriptions.Item label="票号/出发日期">{info.startTime}</Descriptions.Item>
-                        <Descriptions.Item label="到达时间">{info.endTime}</Descriptions.Item>
-                        <Descriptions.Item label="来黔目的地">{info.destination}</Descriptions.Item>
-                        <Descriptions.Item label="来黔详细地址">{info.destinationDetail}</Descriptions.Item>
-                    </Descriptions>
                     {
-                        info && info.is_broad == "是" &&
+                        detailItem && detailItem.person &&
+                        <Descriptions title="人员基本信息">
+                            <Descriptions.Item label="姓名">{detailItem.person.name || '-'}</Descriptions.Item>
+                            <Descriptions.Item label="身份证">{detailItem.person.id_num || '-'}</Descriptions.Item>
+                            <Descriptions.Item label="性别">{detailItem.person.gender || '-'}</Descriptions.Item>
+                            <Descriptions.Item label="电话">{detailItem.person.phone_num || '-'}</Descriptions.Item>
+                            <Descriptions.Item label="护照号">{detailItem.person.passport_num || '-'}</Descriptions.Item>
+                            <Descriptions.Item label="是否为留学生">{detailItem.person.is_student_abroad == 0 ? "否" : "是"}</Descriptions.Item>
+                            <Descriptions.Item label="健康码">{tag}</Descriptions.Item>
+                            <Descriptions.Item label="年龄">{detailItem.person.age || '-'}</Descriptions.Item>
+                            <Descriptions.Item label="是否为入境人员">{detailItem.person.is_broad == 0 ? "否" : "是"}</Descriptions.Item>
+                            <Descriptions.Item label="紧急联系人">{detailItem.person.emergency_contact || '-'}</Descriptions.Item>
+                            <Descriptions.Item label="紧急联系电话">{detailItem.person.emergency_contact_phone || '-'}</Descriptions.Item>
+                            <Descriptions.Item label="国籍">{detailItem.person.nationality || '-'}</Descriptions.Item>
+                            <Descriptions.Item label="户籍地">{detailItem.person.born_address && detailItem.person.born_address.split(',').join(' / ') || '-'}</Descriptions.Item>
+                            <Descriptions.Item label="住址">{detailItem.person.live_address || '-'}</Descriptions.Item>
+                        </Descriptions>
+                    }
+                    {
+                        detailItem && detailItem.in_province_info &&
+                        <Descriptions title="来黔信息">
+                            <Descriptions.Item label="来黔方式">{this.renderType(detailItem.in_province_info.transport_type)}</Descriptions.Item>
+                            <Descriptions.Item label="出发地">{detailItem.in_province_info.from_address && detailItem.in_province_info.from_address.split(',').join(' / ') || '-'}</Descriptions.Item>
+                            <Descriptions.Item label="出发地风险等级">{from_address_level}</Descriptions.Item>
+                            <Descriptions.Item label="到达地">{detailItem.in_province_info.station || '-'}</Descriptions.Item>
+                            <Descriptions.Item label="航班/车次">{detailItem.in_province_info.transport_num || '-'}</Descriptions.Item>
+                            <Descriptions.Item label="座位号">{detailItem.in_province_info.seat_num || '-'}</Descriptions.Item>
+                            <Descriptions.Item label="票号/出发日期">{detailItem.in_province_info.departure_time ? moment(detailItem.in_province_info.departure_time).format('YYYY-MM-DD HH:mm:ss') : "-"}</Descriptions.Item>
+                            <Descriptions.Item label="到达时间">{detailItem.in_province_info.arrival_time ? moment(detailItem.in_province_info.arrival_time).format('YYYY-MM-DD HH:mm:ss') : '-'}</Descriptions.Item>
+                            <Descriptions.Item label="来黔目的地">{detailItem.in_province_info.des_city && detailItem.in_province_info.des_city.split(',').join(' / ') || '-'}</Descriptions.Item>
+                            <Descriptions.Item label="来黔详细地址">{detailItem.in_province_info.des_address || '-'}</Descriptions.Item>
+                        </Descriptions>
+                    }
+                    {
+                        detailItem && detailItem.person && detailItem.person.is_broad == true && detailItem.immigration_info &&
                         <Descriptions title="入境信息">
-                            <Descriptions.Item label="入境方式">{info.entrytype}</Descriptions.Item>
-                            <Descriptions.Item label="入境口岸">{info.entryPlace}</Descriptions.Item>
-                            <Descriptions.Item label="入境班次">{info.entryNum}</Descriptions.Item>
-                            <Descriptions.Item label="入境时间">{info.entryTime}</Descriptions.Item>
-                            <Descriptions.Item label="入境始发国">{info.entryStartPlace}</Descriptions.Item>
-                            <Descriptions.Item label="是否为重点区域">{info.isHigh}</Descriptions.Item>
+                            <Descriptions.Item label="入境方式">{this.renderType(detailItem.immigration_info.entrytype)}</Descriptions.Item>
+                            <Descriptions.Item label="入境口岸">{detailItem.immigration_info.station || '-'}</Descriptions.Item>
+                            <Descriptions.Item label="入境班次">{detailItem.immigration_info.immigration_num || '-'}</Descriptions.Item>
+                            <Descriptions.Item label="入境时间">{detailItem.immigration_info.immigration_time ? moment(detailItem.immigration_info.immigration_time).format('YYYY-MM-DD HH:mm:ss') : "-"}</Descriptions.Item>
+                            <Descriptions.Item label="入境始发国">{detailItem.immigration_info.from_country || '-'}</Descriptions.Item>
+                            <Descriptions.Item label="是否为重点区域">{detailItem.immigration_info.is_danger == false ? "否" : "是"}</Descriptions.Item>
+                        </Descriptions>
+                    }
+                    {
+                        detailItem && detailItem.prevention_info &&
+                        <Descriptions title="防疫信息">
+                            <Descriptions.Item label="有无7天内核酸检测报告
+                        ">{detailItem.prevention_info.is_7_days_nat == false ? "否" : "是"}</Descriptions.Item>
+                            <Descriptions.Item label="核酸检测时间">{detailItem.prevention_info.nat_date ? moment(detailItem.prevention_info.nat_date).format('YYYY-MM-DD HH:mm:ss') : '-'}</Descriptions.Item>
+                            <Descriptions.Item label="核酸检测地点">{detailItem.prevention_info.nat_address || '-'}</Descriptions.Item>
+                            <Descriptions.Item label="核酸检测结果">{detailItem.prevention_info.nat_result == 0 ? "阴性" : "阳性"}</Descriptions.Item>
+                            <Descriptions.Item label="二次核酸检测时间">{detailItem.prevention_info.twice_nat_date ? moment(detailItem.prevention_info.twice_nat_date).format('YYYY-MM-DD HH:mm:ss') : '-'}</Descriptions.Item>
+                            <Descriptions.Item label="二次核酸检测结果">{detailItem.prevention_info.twice_nat_result == 0 ? "阴性" : "阳性"}</Descriptions.Item>
+                            <Descriptions.Item label="有无14天集中隔离
+                        ">{detailItem.prevention_info.is_14_days_medical_observation == false ? "否" : "是"}</Descriptions.Item>
+                            <Descriptions.Item label="集中隔离开始时间">{detailItem.prevention_info.observation_start ? moment(detailItem.prevention_info.observation_start).format('YYYY-MM-DD HH:mm:ss') : '-'}</Descriptions.Item>
+                            <Descriptions.Item label="集中隔离期满时间">{detailItem.prevention_info.observation_end ? moment(detailItem.prevention_info.observation_end).format('YYYY-MM-DD HH:mm:ss') : '-'}</Descriptions.Item>
+                            <Descriptions.Item label="集中隔离期满地点">{detailItem.prevention_info.observation_address || '-'}</Descriptions.Item>
+                            <Descriptions.Item label="是否居家隔离">{detailItem.prevention_info.home_isolation == false ? "否" : "是"}</Descriptions.Item>
+                            <Descriptions.Item label="居家隔离开始时间">{detailItem.prevention_info.isolation_start ? moment(detailItem.prevention_info.isolation_start).format('YYYY-MM-DD HH:mm:ss') : '-'}</Descriptions.Item>
+                            <Descriptions.Item label="居家隔离期满时间">{detailItem.prevention_info.isolation_end ? moment(detailItem.prevention_info.isolation_end).format('YYYY-MM-DD HH:mm:ss') : '-'}</Descriptions.Item>
                         </Descriptions>
                     }
                 </Modal>

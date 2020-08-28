@@ -1,11 +1,14 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import './style.scss'
-import { Input, Form, Checkbox } from 'antd';
+import { Input, Form, Checkbox, message } from 'antd';
 import request from '../../utils/request'
 import API from '../../api/index'
 import axios from "axios"
+import { observer, inject } from 'mobx-react';
 
+@inject("commonStore")
+@observer
 class Login extends Component {
 
     state = {
@@ -23,27 +26,30 @@ class Login extends Component {
     login = () => {
         this.loginFormRef.current.validateFields()
             .then(values => {
-                console.log(values)
                 const formData = new FormData();
                 formData.append("phone_num", values.username);
                 formData.append("password", values.password);
                 formData.append("client_id", 'command_control');
-                // if (values.remember === true) {
-                //     window.localStorage.setItem('psw', values.password)
-                //     window.localStorage.setItem('username', values.username)
-                // } else {
-                //     window.localStorage.removeItem('username')
-                //     window.localStorage.removeItem('psw')
-                // }
+                if (values.remember === true) {
+                    window.localStorage.setItem('psw', values.password)
+                    window.localStorage.setItem('username', values.username)
+                } else {
+                    window.localStorage.removeItem('username')
+                    window.localStorage.removeItem('psw')
+                }
                 axios.post(API.Login.login,
                     formData,
                     { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
-                ).then((response) => {
-                    if (response.status == '200') {
-                        window.sessionStorage.setItem("token", response.data.access_token)
-                        this.props.history.push('/persontract')
-                    }
-                })
+                )
+                    .then((response) => {
+                        if (response.status == '200') {
+                            window.sessionStorage.setItem("token", response.data.access_token)
+                            this.props.history.push('/persontract')
+                        }
+                    })
+                    .catch((error) => {
+                        message.warning(error.response.data.detail || '出错了！')
+                    })
             })
     }
 
@@ -60,6 +66,10 @@ class Login extends Component {
 
     componentDidMount() {
         window.addEventListener('resize', this.windowRisize)
+        this.loginFormRef.current.setFieldsValue({
+            username: window.localStorage.getItem('username') || undefined,
+            password: window.localStorage.getItem('psw') || undefined
+        })
     }
 
     componentWillUnmount() {
@@ -71,7 +81,7 @@ class Login extends Component {
         return (
             <div className="page-login">
                 <div className="logo">
-                    指挥调度系统
+                    贵州省疫情社会防控指挥调度系统
                 </div>
                 <div className="cont">
                     <div className="right">
@@ -85,7 +95,6 @@ class Login extends Component {
                                 label=""
                                 name="username"
                                 rules={[{ required: true, message: '用户名不能为空' }]}
-                                initialValue={window.localStorage.getItem('username') || undefined}
                             >
                                 <Input
                                     prefix={<i className="iconfont" style={{ color: 'rgba(0,0,0,.25)' }}>&#xe7b1;</i>}
@@ -97,11 +106,11 @@ class Login extends Component {
                                 label=""
                                 name="password"
                                 rules={[{ required: true, message: '密码不能为空' }]}
-                                initialValue={window.localStorage.getItem('psw') || undefined}
                             >
                                 <Input.Password
                                     prefix={<i className="iconfont" style={{ color: 'rgba(0,0,0,.25)' }}>&#xe7b6;</i>}
                                     placeholder="请输入登录密码"
+                                    onPressEnter={this.login}
                                 />
                             </Form.Item>
                             <Form.Item

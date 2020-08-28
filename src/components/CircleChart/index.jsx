@@ -80,6 +80,12 @@ class CircleChart extends Component {
         this.chart.render();
     }
 
+    componentDidUpdate() {
+        let data = this.props.data
+        this.chart.changeData(data);
+        this.chart.render();
+    }
+
     render() {
         return (
             <div className="comp-circlechart">

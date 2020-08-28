@@ -34,6 +34,10 @@
         >span.active {
             color: #1890ff;
         }
+
+        .ant-picker.ant-picker-range {
+            width: 300px;
+        }
     }
 
     .maincont {
@@ -52,10 +56,12 @@
     .cards {
         display: flex;
         margin: 10px 0;
-        justify-content: space-between;
+        justify-content: space-around;
+        flex-wrap: wrap;
 
         >div {
             width: 32%;
+            margin-bottom: 10px;
         }
     }
 }

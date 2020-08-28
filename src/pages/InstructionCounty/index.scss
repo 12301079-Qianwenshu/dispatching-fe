@@ -1,0 +1,113 @@
+.page-instructionCounty {
+    height: 100%;
+
+    .ant-breadcrumb {
+        position: fixed;
+        left: 220px;
+        top: 50px;
+        width: 100%;
+        height: 30px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        padding-left: 20px;
+        background-color: rgba(240, 242, 245, 1);
+    }
+
+    .detail {
+        background: #fff;
+        padding: 14px;
+        min-height: 100%;
+        margin-bottom: 20px;
+    }
+
+    .operation {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+    }
+
+    .ant-table-selection-extra {
+        display: none;
+    }
+
+    .ant-pagination-total-text {
+        position: absolute;
+        left: 0;
+    }
+
+    .instruction-modal.nofooter {
+        .ant-modal-footer {
+            display: none;
+        }
+
+        .ant-pagination {
+            margin-bottom: 0px;
+        }
+    }
+
+    .inner-modal {
+        .ant-modal-footer {
+            display: block !important;
+        }
+
+        .title {
+            padding: 5px 0;
+            background: rgba($color: #1890ff, $alpha: 0.1);
+        }
+
+        .ant-form-item-label {
+            width: 110px;
+        }
+
+        .ant-input-number {
+            width: 100%;
+        }
+
+        .ant-picker {
+            width: 100%;
+        }
+
+        textarea {
+            resize: none;
+        }
+
+        .btn {
+            text-align: right;
+        }
+
+        .prevent-form {
+            .ant-form-item-label {
+                width: 130px;
+            }
+        }
+
+        .is_7_days_nat {
+            .ant-form-item-label {
+                width: 160px;
+            }
+        }
+
+        .immigration_form {
+            .ant-form-item-label {
+                width: 130px;
+            }
+        }
+
+        .detail {
+            background: #fff;
+            padding: 0 14px;
+            min-height: 100%;
+            margin-bottom: 0;
+        }
+    }
+
+    .inner-modal.nofooter {
+        .ant-modal-footer {
+            display: none !important;
+        }
+    }
+
+    .ant-picker.ant-picker-range {
+        width: 100%;
+    }
+}

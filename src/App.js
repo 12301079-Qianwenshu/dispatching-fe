@@ -21,6 +21,7 @@ import Statinstruction from './pages/StatInstruction/index'
 import Login from './pages/Login/index'
 import Register from './pages/Login/Register/index'
 import Usercenter from './pages/Usercenter/index'
+import InstructionCounty from './pages/InstructionCounty/index'
 
 class App extends Component {
 
@@ -45,9 +46,27 @@ class App extends Component {
                                 <Route path='/persontract/:type' component={TrackDetail} />
                                 <Route path='/persontract' component={Track} />
                                 {/* 指令管理 */}
-                                <Route path='/instruction/detail/:id' component={InstructionDetail} />
-                                <Route path='/instruction/:type' component={InstructionEdit} />
-                                <Route path='/instruction' component={Instruction} />
+                                <Route path='/instruct/detail/:id' component={InstructionDetail} />
+                                <Route path='/instruct/pro/edit/:id' component={InstructionEdit} />
+                                <Route path='/instruct/pro/add' component={InstructionEdit} />
+                                <Route path='/instruct/pro/send' component={Instruction} />
+                                <Route path='/instruct/pro/sign' component={Instruction} />
+                                <Route path='/instruct/pro/fb' component={Instruction} />
+                                <Route path='/instruct/pro/signfb' component={Instruction} />
+                                <Route path='/instruct/pro/done' component={Instruction} />
+                                <Route path='/instruct/pro/refuse' component={Instruction} />
+                                <Route path='/instruct/pro/recall' component={Instruction} />
+
+                                <Route path='/instruct/city/sign' component={Instruction} />
+                                <Route path='/instruct/city/fb' component={Instruction} />
+                                <Route path='/instruct/city/signfb' component={Instruction} />
+                                <Route path='/instruct/city/done' component={Instruction} />
+                                <Route path='/instruct/city/refuse' component={Instruction} />
+
+                                <Route path='/instruct/county/fb' component={InstructionCounty} />
+                                <Route path='/instruct/county/signfb' component={InstructionCounty} />
+                                <Route path='/instruct/county/refuse' component={InstructionCounty} />
+                                <Route path='/instruct/county/done' component={InstructionCounty} />
                                 {/* 统计分析 */}
                                 <Route path='/statperson' component={Statperson} />
                                 <Route path='/statinstruction' component={Statinstruction} />

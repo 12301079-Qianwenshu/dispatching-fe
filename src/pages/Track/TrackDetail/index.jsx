@@ -7,6 +7,8 @@ import { POSITION } from '../../../constant/position'
 import { NATION } from '../../../constant/nation'
 import request from '../../../utils/request'
 import API from '../../../api/index'
+import { observer, inject } from 'mobx-react';
+import { toJS } from 'mobx';
 
 const { Option } = Select;
 const { TextArea } = Input;
@@ -14,12 +16,15 @@ const { TextArea } = Input;
 const options = POSITION
 const optionsChildren = POSITION.filter((item) => item.label == "贵州省")[0].children
 
+@inject("commonStore")
+@observer
 class TrackDetail extends Component {
 
     state = {
-        isEntry: false,
+        is_broad: false,
         type: this.props.match.params.type,
-        currentItem: null
+        currentItem: null,
+        isblur: false
     }
 
     baseFormRef = React.createRef();
@@ -28,17 +33,64 @@ class TrackDetail extends Component {
     preventFormRef = React.createRef();
 
     // 是否为入境人员变化回调
-    isEntryChange = (e) => {
-        console.log(e.target.value)
+    isBroadChange = (e) => {
         this.setState({
-            isEntry: e.target.value
+            is_broad: e.target.value
         })
     }
 
-    // 人员信息村
+    // 根据电话号、身份证号、护照号获取人员基本信息并回填
+    keyBlur = (e, key) => {
+        const { type, isblur } = this.state
+        if (type == "add") {
+            if (e.target.value && !isblur) {
+                request.get(`${API.Person.personBase}`, { [key]: e.target.value })
+                    .then(res => {
+                        if (res.success) {
+                            if (res.data && res.data.length > 0) {
+                                let text = ''
+                                if (key = "phone_num") {
+                                    text = "电话"
+                                } else if (key = "id_num") {
+                                    text = "身份证号"
+                                } else if (key = "passport_num") {
+                                    text = "护照号"
+                                }
+                                message.success(`该${text}对应人员基本信息已存在，系统已自动补全其他基本信息`)
+                                let data = res.data[0]
+                                this.baseFormRef.current.setFieldsValue({
+                                    name: data.name,
+                                    id_num: data.id_num,
+                                    phone_num: data.phone_num,
+                                    passport_num: data.passport_num,
+                                    gender: data.gender,
+                                    age: data.age,
+                                    health_code: data.health_code,
+                                    is_student_abroad: data.is_student_abroad,
+                                    is_broad: data.is_broad,
+                                    emergency_contact: data.emergency_contact,
+                                    emergency_contact_phone: data.emergency_contact_phone,
+                                    nationality: data.nationality,
+                                    born_address: data.born_address && data.born_address.split(','),
+                                    live_address: data.live_address
+                                })
+                                this.setState({
+                                    isblur: true,
+                                    currentItem: data,
+                                    is_broad: data.is_broad
+                                })
+                            }
+                        }
+                    })
+            }
+
+        }
+    }
+
+    // 人员信息保存
     save = () => {
         let info = {}
-        let { isEntry, type } = this.state
+        let { is_broad, type } = this.state
         // 人员基本信息
         this.baseFormRef.current.validateFields()
             .then(values => {
@@ -61,7 +113,8 @@ class TrackDetail extends Component {
                                 ...info,
                                 inprovince_info_fields: {
                                     ...values,
-                                    des_city: values.des_city && values.des_city.join(",")
+                                    des_city: values.des_city && values.des_city.join(","),
+                                    from_address: values.from_address && values.from_address.join(",")
                                 }
                             }
                             // 防疫信息
@@ -73,7 +126,7 @@ class TrackDetail extends Component {
                                             ...values
                                         }
                                     }
-                                    if (isEntry == true) {
+                                    if (is_broad == true) {
                                         // 入境信息
                                         this.entryFormRef.current.validateFields()
                                             .then(values => {
@@ -97,6 +150,7 @@ class TrackDetail extends Component {
                                                                 this.props.history.push('/persontract')
                                                             }
                                                         })
+
                                                 }
                                             })
                                     } else {
@@ -154,45 +208,54 @@ class TrackDetail extends Component {
                             born_address: data.person.born_address && data.person.born_address.split(','),
                             live_address: data.person.live_address
                         })
-                        this.laiqianFormRef.current.setFieldsValue({
-                            transport_type: data.in_province_info.transport_type,
-                            from_address: data.in_province_info.from_address,
-                            from_address_level: data.in_province_info.from_address_level,
-                            station: data.in_province_info.station,
-                            transport_num: data.in_province_info.transport_num,
-                            seat_num: data.in_province_info.seat_num,
-                            departure_time: data.in_province_info.departure_time ? moment(data.in_province_info.departure_time, 'YYYY-MM-DD HH:mm:ss') : undefined,
-                            arrival_time: data.in_province_info.arrival_time ? moment(data.in_province_info.arrival_time, 'YYYY-MM-DD HH:mm:ss') : undefined,
-                            des_city: data.in_province_info.des_city && data.in_province_info.des_city.split(','),
-                            des_address: data.in_province_info.des_address
-                        })
-                        if (data.person.is_broad) {
+                        if (data.in_province_info) {
+                            this.laiqianFormRef.current.setFieldsValue({
+                                transport_type: data.in_province_info.transport_type,
+                                from_address: data.in_province_info.from_address && data.in_province_info.from_address.split(','),
+                                from_address_level: data.in_province_info.from_address_level,
+                                station: data.in_province_info.station,
+                                transport_num: data.in_province_info.transport_num,
+                                seat_num: data.in_province_info.seat_num,
+                                departure_time: data.in_province_info.departure_time ? moment(data.in_province_info.departure_time, 'YYYY-MM-DD HH:mm:ss') : undefined,
+                                arrival_time: data.in_province_info.arrival_time ? moment(data.in_province_info.arrival_time, 'YYYY-MM-DD HH:mm:ss') : undefined,
+                                des_city: data.in_province_info.des_city && data.in_province_info.des_city.split(','),
+                                des_address: data.in_province_info.des_address,
+                                note: data.in_province_info.note
+                            })
+                        }
+                        if (data.person.is_broad && data.immigration_info) {
                             this.entryFormRef.current.setFieldsValue({
                                 immigration_type: data.immigration_info.immigration_type,
                                 station: data.immigration_info.station,
                                 immigration_num: data.immigration_info.immigration_num,
                                 immigration_time: data.immigration_info.immigration_time ? moment(data.immigration_info.immigration_time, 'YYYY-MM-DD HH:mm:ss') : undefined,
                                 from_country: data.immigration_info.from_country,
-                                is_danger: data.immigration_info.is_danger
+                                is_danger: data.immigration_info.is_danger,
+                                note: data.immigration_info.note
                             })
                         }
                         // 防疫信息初始化
-                        this.preventFormRef.current.setFieldsValue({
-                            is_7_days_nat: data.prevention_info.is_7_days_nat,
-                            nat_date: data.prevention_info.nat_date ? moment(data.prevention_info.nat_date, 'YYYY-MM-DD HH:mm:ss') : undefined,
-                            nat_address: data.prevention_info.nat_address,
-                            nat_result: data.prevention_info.nat_result,
-                            is_14_days_medical_observation: data.prevention_info.is_14_days_medical_observation,
-                            observation_address: data.prevention_info.observation_address,
-                            observation_start: data.prevention_info.observation_start ? moment(data.prevention_info.observation_start, 'YYYY-MM-DD HH:mm:ss') : undefined,
-                            observation_end: data.prevention_info.observation_end ? moment(data.prevention_info.observation_end, 'YYYY-MM-DD HH:mm:ss') : undefined,
-                            home_isolation: data.prevention_info.home_isolation,
-                            isolation_start: data.prevention_info.isolation_start ? moment(data.prevention_info.isolation_start, 'YYYY-MM-DD HH:mm:ss') : undefined,
-                            isolation_end: data.prevention_info.isolation_end ? moment(data.prevention_info.isolation_end, 'YYYY-MM-DD HH:mm:ss') : undefined,
-                        })
+                        if (data.prevention_info) {
+                            this.preventFormRef.current.setFieldsValue({
+                                is_7_days_nat: data.prevention_info.is_7_days_nat,
+                                nat_date: data.prevention_info.nat_date ? moment(data.prevention_info.nat_date, 'YYYY-MM-DD HH:mm:ss') : undefined,
+                                nat_address: data.prevention_info.nat_address,
+                                nat_result: data.prevention_info.nat_result,
+                                is_14_days_medical_observation: data.prevention_info.is_14_days_medical_observation,
+                                observation_address: data.prevention_info.observation_address,
+                                observation_start: data.prevention_info.observation_start ? moment(data.prevention_info.observation_start, 'YYYY-MM-DD HH:mm:ss') : undefined,
+                                observation_end: data.prevention_info.observation_end ? moment(data.prevention_info.observation_end, 'YYYY-MM-DD HH:mm:ss') : undefined,
+                                home_isolation: data.prevention_info.home_isolation,
+                                isolation_start: data.prevention_info.isolation_start ? moment(data.prevention_info.isolation_start, 'YYYY-MM-DD HH:mm:ss') : undefined,
+                                isolation_end: data.prevention_info.isolation_end ? moment(data.prevention_info.isolation_end, 'YYYY-MM-DD HH:mm:ss') : undefined,
+                                twice_nat_date: data.prevention_info.twice_nat_date ? moment(data.prevention_info.twice_nat_date, 'YYYY-MM-DD HH:mm:ss') : undefined,
+                                twice_nat_result: data.prevention_info.twice_nat_result,
+                                note: data.prevention_info.note
+                            })
+                        }
                         this.setState({
                             currentItem: data,
-                            isEntry: data.person.is_broad
+                            is_broad: data.person.is_broad
                         })
                     }
                 })
@@ -200,12 +263,18 @@ class TrackDetail extends Component {
     }
 
     render() {
-        const { isEntry, type } = this.state
+        const { is_broad, type } = this.state
         let breadlist = [
             { text: '人员管理', link: '' },
             { text: '人员轨迹信息', link: '' },
             { text: type == "add" ? '轨迹新增' : '轨迹详情', link: '' }
         ]
+        let userinfo = toJS(this.props.commonStore.userinfo)
+        let role = null
+        if (userinfo) {
+            role = userinfo.org && userinfo.org.org_level || 0
+        }
+
         return (
             <div className="page-trackDetail">
                 <Breadcrumb>
@@ -240,7 +309,7 @@ class TrackDetail extends Component {
                                     label='身份证'
                                     rules={[{ required: false }]}
                                 >
-                                    <Input placeholder="请输入" />
+                                    <Input placeholder="请输入" onBlur={(e) => this.keyBlur(e, "id_num")} />
                                 </Form.Item>
                             </Col>
                             <Col span={8} style={{ maxWidth: '30%' }}>
@@ -264,7 +333,7 @@ class TrackDetail extends Component {
                                     label='电话'
                                     rules={[{ required: false }]}
                                 >
-                                    <Input placeholder="请输入" />
+                                    <Input placeholder="请输入" onBlur={(e) => this.keyBlur(e, "phone_num")} />
                                 </Form.Item>
                             </Col>
                             <Col span={8} style={{ maxWidth: '30%' }}>
@@ -273,7 +342,7 @@ class TrackDetail extends Component {
                                     label='护照号'
                                     rules={[{ required: false }]}
                                 >
-                                    <Input placeholder="请输入" />
+                                    <Input placeholder="请输入" onBlur={(e) => this.keyBlur(e, "passport_num")} />
                                 </Form.Item>
                             </Col>
                             <Col span={8} style={{ maxWidth: '30%' }}>
@@ -322,9 +391,9 @@ class TrackDetail extends Component {
                                     label="是否为入境人员"
                                     name="is_broad"
                                     rules={[{ required: false }]}
-                                    initialValue={isEntry}
+                                    initialValue={false}
                                 >
-                                    <Radio.Group onChange={this.isEntryChange}>
+                                    <Radio.Group onChange={this.isBroadChange}>
                                         <Radio value={true}>是</Radio>
                                         <Radio value={false}>否</Radio>
                                     </Radio.Group>
@@ -380,7 +449,7 @@ class TrackDetail extends Component {
                                     label='户籍地'
                                     rules={[{ required: false }]}
                                 >
-                                    <Cascader options={options} placeholder="请选择"
+                                    <Cascader options={options} placeholder="请选择" changeOnSelect
                                         fieldNames={
                                             { label: 'label', value: 'label', children: 'children' }
                                         }
@@ -430,7 +499,11 @@ class TrackDetail extends Component {
                                     label='出发地'
                                     rules={[{ required: false }]}
                                 >
-                                    <Input placeholder="请输入" />
+                                    <Cascader options={options} placeholder="请选择" changeOnSelect
+                                        fieldNames={
+                                            { label: 'label', value: 'label', children: 'children' }
+                                        }
+                                    />
                                 </Form.Item>
                             </Col>
                             <Col span={8} style={{ maxWidth: '30%' }}>
@@ -510,7 +583,7 @@ class TrackDetail extends Component {
                                     label='来黔目的地'
                                     rules={[{ required: false }]}
                                 >
-                                    <Cascader options={optionsChildren} placeholder="请选择"
+                                    <Cascader options={optionsChildren} placeholder="请选择" changeOnSelect
                                         fieldNames={
                                             { label: 'label', value: 'label', children: 'children' }
                                         } />
@@ -528,10 +601,21 @@ class TrackDetail extends Component {
                                 </Form.Item>
                             </Col>
                         </Row>
+                        <Row justify="space-between">
+                            <Col span={16} style={{ maxWidth: '65%' }}>
+                                <Form.Item
+                                    name='note'
+                                    label='备注'
+                                    rules={[{ required: false }]}
+                                >
+                                    <TextArea rows={2} placeholder="请输入备注" />
+                                </Form.Item>
+                            </Col>
+                        </Row>
                     </Form>
                     <h2 className="title"
                         style={{
-                            display: isEntry == true ? 'block' : 'none',
+                            display: is_broad == true ? 'block' : 'none',
                         }}
                     >入境信息</h2>
                     <Form
@@ -539,7 +623,7 @@ class TrackDetail extends Component {
                         ref={this.entryFormRef}
                         className="immigration_form"
                         style={{
-                            height: isEntry == true ? 'auto' : 0,
+                            height: is_broad == true ? 'auto' : 0,
                             overflow: 'hidden'
                         }}
                     >
@@ -626,6 +710,17 @@ class TrackDetail extends Component {
                                 </Form.Item>
                             </Col>
                         </Row>
+                        <Row justify="space-between">
+                            <Col span={16} style={{ maxWidth: '65%' }}>
+                                <Form.Item
+                                    name='note'
+                                    label='备注'
+                                    rules={[{ required: false }]}
+                                >
+                                    <TextArea rows={2} placeholder="请输入备注" />
+                                </Form.Item>
+                            </Col>
+                        </Row>
                     </Form>
                     <h2 className="title">防疫信息</h2>
                     <Form
@@ -634,12 +729,13 @@ class TrackDetail extends Component {
                         className="prevent-form"
                     >
                         <Row justify="space-between">
-                            <Col span={8} style={{ maxWidth: '30%' }}>
+                            <Col span={8} style={{ maxWidth: '40%' }}>
                                 <Form.Item
                                     label="有无7天内核酸检测报告"
                                     name="is_7_days_nat"
                                     rules={[{ required: false }]}
                                     initialValue={false}
+                                    className="is_7_days_nat"
                                 >
                                     <Radio.Group>
                                         <Radio value={true}>是</Radio>
@@ -647,6 +743,8 @@ class TrackDetail extends Component {
                                     </Radio.Group>
                                 </Form.Item>
                             </Col>
+                        </Row>
+                        <Row justify="space-between">
                             <Col span={8} style={{ maxWidth: '30%' }}>
                                 <Form.Item
                                     name='nat_date'
@@ -665,8 +763,6 @@ class TrackDetail extends Component {
                                     <Input placeholder="请输入" />
                                 </Form.Item>
                             </Col>
-                        </Row>
-                        <Row justify="space-between">
                             <Col span={8} style={{ maxWidth: '30%' }}>
                                 <Form.Item
                                     name='nat_result'
@@ -685,7 +781,33 @@ class TrackDetail extends Component {
                         <Row justify="space-between">
                             <Col span={8} style={{ maxWidth: '30%' }}>
                                 <Form.Item
-                                    label="有无14天医学观察"
+                                    name='twice_nat_date'
+                                    label='二次核酸检测时间'
+                                    rules={[{ required: false }]}
+                                >
+                                    <DatePicker format="YYYY-MM-DD HH:mm:ss" showTime={{ defaultValue: moment('00:00:00', 'HH:mm:ss') }} />
+                                </Form.Item>
+                            </Col>
+                            <Col span={8} style={{ maxWidth: '30%' }}>
+                                <Form.Item
+                                    name='twice_nat_result'
+                                    label='二次核酸检测结果'
+                                    rules={[{ required: false }]}
+                                >
+                                    <Select
+                                        placeholder="请选择"
+                                    >
+                                        <Option value={0}>阴性</Option>
+                                        <Option value={1}>阳性</Option>
+                                    </Select>
+                                </Form.Item>
+                            </Col>
+                            <Col span={8} style={{ maxWidth: '30%' }}></Col>
+                        </Row>
+                        <Row justify="space-between">
+                            <Col span={8} style={{ maxWidth: '30%' }}>
+                                <Form.Item
+                                    label="有无14天集中隔离"
                                     name="is_14_days_medical_observation"
                                     rules={[{ required: false }]}
                                     initialValue={false}
@@ -696,10 +818,12 @@ class TrackDetail extends Component {
                                     </Radio.Group>
                                 </Form.Item>
                             </Col>
+                        </Row>
+                        <Row justify="space-between">
                             <Col span={8} style={{ maxWidth: '30%' }}>
                                 <Form.Item
                                     name='observation_start'
-                                    label='观察开始时间'
+                                    label='集中隔离开始时间'
                                     rules={[{ required: false }]}
                                 >
                                     <DatePicker format="YYYY-MM-DD HH:mm:ss" showTime={{ defaultValue: moment('00:00:00', 'HH:mm:ss') }} />
@@ -708,18 +832,16 @@ class TrackDetail extends Component {
                             <Col span={8} style={{ maxWidth: '30%' }}>
                                 <Form.Item
                                     name='observation_end'
-                                    label='观察期满时间'
+                                    label='集中隔离期满时间'
                                     rules={[{ required: false }]}
                                 >
                                     <DatePicker format="YYYY-MM-DD HH:mm:ss" showTime={{ defaultValue: moment('00:00:00', 'HH:mm:ss') }} />
                                 </Form.Item>
                             </Col>
-                        </Row>
-                        <Row justify="space-between">
                             <Col span={8} style={{ maxWidth: '30%' }}>
                                 <Form.Item
                                     name='observation_address'
-                                    label='医学观察地点'
+                                    label='集中隔离期满地点'
                                     rules={[{ required: false }]}
                                 >
                                     <Input placeholder="请输入" />
@@ -759,11 +881,25 @@ class TrackDetail extends Component {
                                 </Form.Item>
                             </Col>
                         </Row>
+                        <Row justify="space-between">
+                            <Col span={16} style={{ maxWidth: '65%' }}>
+                                <Form.Item
+                                    name='note'
+                                    label='备注'
+                                    rules={[{ required: false }]}
+                                >
+                                    <TextArea rows={2} placeholder="请输入备注" />
+                                </Form.Item>
+                            </Col>
+                        </Row>
                     </Form>
-                    <div className="btn">
-                        <Button type="primary" style={{ marginRight: '8px' }} onClick={this.save}>保存</Button>
-                        <Button onClick={this.cancel}>取消</Button>
-                    </div>
+                    {
+                        role && role == 1 &&
+                        <div className="btn">
+                            <Button type="primary" style={{ marginRight: '8px' }} onClick={this.save}>保存</Button>
+                            <Button onClick={this.cancel}>取消</Button>
+                        </div>
+                    }
                 </div>
             </div>
         );

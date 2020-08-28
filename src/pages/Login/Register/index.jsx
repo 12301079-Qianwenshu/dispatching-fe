@@ -57,7 +57,7 @@ class Register extends Component {
         return (
             <div className="page-register">
                 <div className="logo">
-                    指挥调度系统
+                    贵州省疫情社会防控指挥调度系统
                 </div>
                 <div className="cont">
                     <div className="right">

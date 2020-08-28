@@ -2,16 +2,10 @@ import React, { Component } from 'react';
 import './index.scss'
 import { Chart } from '@antv/g2';
 
-const data = [
-    { name: '轨迹数', time: '20200712', num: 18 },
-    { name: '人员数', time: '20200712', num: 12.4 },
-    { name: '核酸阴性数', time: '20200712', num: 12 },
-    { name: '核酸阳性数', time: '20200712', num: 1 },
-];
-
 class BarChart extends Component {
 
     componentDidMount() {
+        let data = this.props.data
         let dom = this.refs.chart
         this.chart = new Chart({
             container: dom,
@@ -23,22 +17,30 @@ class BarChart extends Component {
             nice: true,
         });
         this.chart.tooltip({
-            showMarkers: false,
+            showMarkers: true,
             shared: true,
+            showCrosshairs: true,
         });
 
         this.chart
-            .interval()
+            .line()
             .position('time*num')
             .color('name')
-            .adjust([
-                {
-                    type: 'dodge',
-                    marginRatio: 0, // 分组中各个柱子之间不留空隙
-                }
-            ]);
+            .shape('smooth')
+
+        this.chart
+            .point()
+            .position('time*num')
+            .color('name')
+            .shape('circle');
 
         this.chart.interaction('active-region');
+        this.chart.render();
+    }
+
+    componentDidUpdate() {
+        let data = this.props.data
+        this.chart.changeData(data);
         this.chart.render();
     }
 
